@@ -152,4 +152,43 @@ public class ChesspairingGame {
         // wee should never reach this point
         throw new IllegalSelectorException();
     }
+
+    public boolean hasPlayer(ChesspairingPlayer player) {
+        if (this.whitePlayer.equals(player)) {
+            return true;
+        }
+        if (this.result != ChesspairingResult.BYE) {
+            if (this.blackPlayer.equals(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public float getPointsForPlayer(ChesspairingPlayer player) {
+        if (this.whitePlayer.equals(player)) {
+            if (result == ChesspairingResult.WHITE_WINS ||
+                    result == ChesspairingResult.WHITE_WINS_BY_FORFEIT ||
+                    result == ChesspairingResult.BYE) {
+                return 1.0f;
+            } else if (result == ChesspairingResult.DRAW_GAME) {
+                return 0.5f;
+            } else {
+                return 0.0f;
+            }
+        }
+        if (this.result != ChesspairingResult.BYE) {
+            if (this.blackPlayer.equals(player)) {
+                if (result == ChesspairingResult.BLACK_WINS ||
+                        result == ChesspairingResult.WHITE_WINS_BY_FORFEIT) {
+                    return 1.0f;
+                } else if (result == ChesspairingResult.DRAW_GAME) {
+                    return 0.5f;
+                } else {
+                    return 0.0f;
+                }
+            }
+        }
+        throw new IllegalStateException("Player not in game. Player name = " + player.getName());
+    }
 }

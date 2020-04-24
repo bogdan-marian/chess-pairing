@@ -257,6 +257,7 @@ public class ChesspairingRound {
      * @param byeValue
      * @return
      */
+    @Deprecated
     public Float getPointsFor(ChesspairingPlayer player, ChesspairingByeValue byeValue) {
         for (ChesspairingGame game : games) {
             if (player.equals(game.getWhitePlayer())) {

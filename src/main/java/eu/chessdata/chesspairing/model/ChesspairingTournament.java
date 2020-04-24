@@ -89,6 +89,7 @@ public class ChesspairingTournament {
         this.deputyChiefArbiters = deputyChiefArbiters;
     }
 
+
     public ChesspairingByeValue getChesspairingByeValue() {
         if (null == this.chesspairingByeValue) {
             this.chesspairingByeValue = ChesspairingByeValue.ONE_POINT;
@@ -285,10 +286,18 @@ public class ChesspairingTournament {
 
             // cycle all games and collect the points
             for (ChesspairingPlayer player : this.players) {
-                Float points = round.getPointsFor(player, this.getChesspairingByeValue());
-                Float initialPoints = pointsMap.get(player);
-                Float result = points + initialPoints;
-                pointsMap.put(player, result);
+                for (ChesspairingGame game : round.getGames()) {
+                    Float initialPoints = pointsMap.get(player);
+                    if (game.hasPlayer(player)) {
+                        Float points = game.getPointsForPlayer(player);
+                        Float result = points + initialPoints;
+                        pointsMap.put(player, result);
+                    }
+                }
+                // Float points = round.getPointsFor(player, this.getChesspairingByeValue());
+                // Float initialPoints = pointsMap.get(player);
+                // Float result = points + initialPoints;
+                // pointsMap.put(player, result);
             }
         }
         return pointsMap;
