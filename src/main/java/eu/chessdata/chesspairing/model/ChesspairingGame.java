@@ -180,7 +180,7 @@ public class ChesspairingGame {
         if (this.result != ChesspairingResult.BYE) {
             if (this.blackPlayer.equals(player)) {
                 if (result == ChesspairingResult.BLACK_WINS ||
-                        result == ChesspairingResult.WHITE_WINS_BY_FORFEIT) {
+                        result == ChesspairingResult.BLACK_WINS_BY_FORFEIT) {
                     return 1.0f;
                 } else if (result == ChesspairingResult.DRAW_GAME) {
                     return 0.5f;

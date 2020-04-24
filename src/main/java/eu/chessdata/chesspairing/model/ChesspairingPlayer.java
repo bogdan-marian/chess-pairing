@@ -1,18 +1,18 @@
 package eu.chessdata.chesspairing.model;
 
-import java.util.Date;
-
 import eu.chessdata.chesspairing.algoritms.fideswissduch.FideSwissDutchAlgorithmV1;
 
+import java.util.Date;
+
 public class ChesspairingPlayer {
-	private String name;
-	private int elo;
-	/**
-	 * this is the the natural order that you wish to be considered for a
-	 * tournament. {@link FideSwissDutchAlgorithmV1} also uses this number in
-	 * making paring decisions.
-	 */
-	private int initialOrderId;
+    private String name;
+    private int elo;
+    /**
+     * this is the the natural order that you wish to be considered for a
+     * tournament. {@link FideSwissDutchAlgorithmV1} also uses this number in
+     * making paring decisions.
+     */
+    private int initialOrderId;
 
 	private String playerKey;
 	private boolean isPresent;
@@ -168,9 +168,4 @@ public class ChesspairingPlayer {
 			return false;
 		return true;
 	}
-
-	
-	
-	
-
 }
