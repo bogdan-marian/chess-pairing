@@ -191,4 +191,20 @@ public class ChesspairingGame {
         }
         throw new IllegalStateException("Player not in game. Player name = " + player.getName());
     }
+
+    /**
+     * It decides if a specific player forfeited the game
+     *
+     * @param player
+     * @return
+     */
+    public boolean playerForfeitedTheGame(ChesspairingPlayer player) {
+        if (this.result == ChesspairingResult.BYE) {
+            return false;
+        }
+        if (this.result == ChesspairingResult.DOUBLE_FORFEIT) {
+            return true;
+        }
+        if (this.whitePlayer.equals(player) &&)
+    }
 }

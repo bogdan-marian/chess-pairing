@@ -336,14 +336,18 @@ public class ChesspairingRound {
     }
 
     public boolean playerHasBye(String playerId) {
-        for (ChesspairingGame game: this.games){
-            if (game.getResult() == ChesspairingResult.BYE ){
+        for (ChesspairingGame game : this.games) {
+            if (game.getResult() == ChesspairingResult.BYE) {
                 ChesspairingPlayer whitePlayer = game.getWhitePlayer();
-                if (whitePlayer.getPlayerKey().equals(playerId)){
+                if (whitePlayer.getPlayerKey().equals(playerId)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public Optional<ChesspairingGame> getGameForPlayerId(String playerId) {
+
     }
 }

@@ -337,6 +337,16 @@ public class ChesspairingTournament {
         }
         float byePoints = computeByeBuchholzPoints(roundNumber, playerId);
         float forfeitPoints = computeForfeitBuchholzPoints(roundNumber, playerId);
+
+        // we need to ignore the opponent points in case the current player forfeit the game
+        ChesspairingPlayer player = this.getPlayer(playerId);
+        ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);
+        boolean playerForfeitTheGame = false;
+        if (null != game) {
+            if (game.playerForfeitedTheGame(player)) {
+                return byePoints + forfeitPoints;
+            }
+        }
         return opponentPoints + byePoints + forfeitPoints;
     }
 
