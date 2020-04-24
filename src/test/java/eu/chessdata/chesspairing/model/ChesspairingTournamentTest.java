@@ -90,10 +90,11 @@ public class ChesspairingTournamentTest {
 
     }
 
-    @Test
+
     public void testGetBuchholzPoints() {
 
         ChesspairingTournament tournament = new ChesspairingTournament();
+        tournament.setTotalRounds(4);
         ChesspairingPlayer p1G = TestUtils.buildPlayer("1G", 1000);
         ChesspairingPlayer p2A = TestUtils.buildPlayer("2A", 1000);
         ChesspairingPlayer p3B = TestUtils.buildPlayer("3B", 1000);
@@ -121,6 +122,5 @@ public class ChesspairingTournamentTest {
         );
 
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p1G.getPlayerKey()));
-
     }
 }

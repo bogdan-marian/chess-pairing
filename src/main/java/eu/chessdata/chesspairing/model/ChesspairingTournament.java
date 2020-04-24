@@ -195,31 +195,10 @@ public class ChesspairingTournament {
      * @param roundNumber is the round number for witch wee have to compute the standings
      * @return and ordered list of players. The best player is ranked number one
      */
-    public List<ChesspairingPlayer> computeStandings(int roundNumber) {
+    public List<ChesspairingPlayer> computeStandings(final int roundNumber) {
         List<ChesspairingPlayer> standings = new ArrayList<>();
         standings.addAll(this.players);
 
-        final Map<ChesspairingPlayer, Float> pointsMap = new HashMap<>();
-        // set the points to 0
-        for (ChesspairingPlayer player : standings) {
-            pointsMap.put(player, 0f);
-        }
-
-        for (int i = 1; i <= roundNumber; i++) {
-            ChesspairingRound round = getRoundByRoundNumber(i);
-            if (!round.allGamesHaveBeanPlayed()) {
-                throw new IllegalStateException(
-                        "Atempt to compute standings when there are still games with no result");
-            }
-
-            // TODO cycle all games and collect the points
-            for (ChesspairingPlayer player : standings) {
-                Float points = round.getPointsFor(player, this.getChesspairingByeValue());
-                Float initialPoints = pointsMap.get(player);
-                Float result = points + initialPoints;
-                pointsMap.put(player, result);
-            }
-        }
 
         // collect all games. for each player create a list with all the games that he
         // played
@@ -251,7 +230,7 @@ public class ChesspairingTournament {
         }
 
         Comparator<ChesspairingPlayer> byPoints = new Comparator<ChesspairingPlayer>() {
-
+            Map<ChesspairingPlayer, Float> pointsMap = computePointsForRound(roundNumber);
             @Override
             public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
                 // TODO Auto-generated method stub
@@ -285,6 +264,36 @@ public class ChesspairingTournament {
     }
 
     /**
+     * @param roundNumber
+     * @return
+     */
+    private Map<ChesspairingPlayer, Float> computePointsForRound(int roundNumber) {
+        final Map<ChesspairingPlayer, Float> pointsMap = new HashMap<>();
+        //final Map<ChesspairingPlayer, Float> pointsMap =  new HashMap<>();
+        // set the points to 0
+        for (ChesspairingPlayer player : this.players) {
+            pointsMap.put(player, 0f);
+        }
+
+        for (int i = 1; i <= roundNumber; i++) {
+            ChesspairingRound round = getRoundByRoundNumber(i);
+            if (!round.allGamesHaveBeanPlayed()) {
+                throw new IllegalStateException(
+                        "Attempt to compute standings when there are still games with no result");
+            }
+
+            // cycle all games and collect the points
+            for (ChesspairingPlayer player : this.players) {
+                Float points = round.getPointsFor(player, this.getChesspairingByeValue());
+                Float initialPoints = pointsMap.get(player);
+                Float result = points + initialPoints;
+                pointsMap.put(player, result);
+            }
+        }
+        return pointsMap;
+    }
+
+    /**
      * It finds the round by a specific round number. If the round requested does
      * not exist then the request it will just throw exception
      *
@@ -310,6 +319,9 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
+
+
         return -1f;
+
     }
 }
