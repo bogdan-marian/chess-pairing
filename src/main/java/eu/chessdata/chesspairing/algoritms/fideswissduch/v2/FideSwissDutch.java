@@ -262,7 +262,6 @@ public class FideSwissDutch implements Algorithm {
 
 		throw new IllegalStateException(
 				"Have no idea what I have missed. Pleas investigate. Posible also no result yet. Still please investigate");
-
 	}
 
 	private void computeOpponentsHistory() {
