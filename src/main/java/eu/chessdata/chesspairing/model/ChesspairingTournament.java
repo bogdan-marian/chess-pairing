@@ -302,4 +302,14 @@ public class ChesspairingTournament {
         throw new IllegalStateException("Not able to locate round nr " + roundNumber);
     }
 
+    /**
+     * It computes the BuchholzPoints for a specific player in a specific round
+     *
+     * @param roundNumber the round number
+     * @param playerId    the player id
+     * @return float value
+     */
+    public float computeBuchholzPoints(int roundNumber, String playerId) {
+        return -1f;
+    }
 }
