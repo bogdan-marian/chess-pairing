@@ -123,7 +123,12 @@ public class ChesspairingTournamentTest {
         );
 
 
-        float point = tournament.computeBuchholzPoints(1, p1G.getPlayerKey());
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p1G.getPlayerKey()));
+        assertEquals(0.0f, tournament.computeBuchholzPoints(1, p2A.getPlayerKey()));
+        assertEquals(1.5f, tournament.computeBuchholzPoints(1, p3B.getPlayerKey()));
+        assertEquals(0.0f, tournament.computeBuchholzPoints(1, p4F.getPlayerKey()));
+        assertEquals(0.0f, tournament.computeBuchholzPoints(1, p5E.getPlayerKey()));
+        assertEquals(1.0f, tournament.computeBuchholzPoints(1, p6D.getPlayerKey()));
+        assertEquals(1.0f, tournament.computeBuchholzPoints(1, p7C.getPlayerKey()));
     }
 }

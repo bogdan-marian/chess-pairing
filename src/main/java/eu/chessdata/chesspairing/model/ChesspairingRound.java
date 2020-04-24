@@ -334,7 +334,7 @@ public class ChesspairingRound {
         return Optional.empty();
     }
 
-    public boolean playerHasBuy(String playerId) {
+    public boolean playerHasBye(String playerId) {
         for (ChesspairingGame game: this.games){
             if (game.getResult() == ChesspairingResult.BYE ){
                 ChesspairingPlayer whitePlayer = game.getWhitePlayer();

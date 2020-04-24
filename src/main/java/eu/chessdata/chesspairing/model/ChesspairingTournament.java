@@ -326,8 +326,31 @@ public class ChesspairingTournament {
         for (ChesspairingPlayer opponent : opponents) {
             opponentPoints += pointsMap.get(opponent);
         }
-        float buyPoints = computeBuyBuchholzPoints(roundNumber, playerId);
-        return opponentPoints + buyPoints;
+        float byePoints = computeByeBuchholzPoints(roundNumber, playerId);
+        float forfeitPoints = computeForfeitBuchholzPoints(roundNumber, playerId);
+        return opponentPoints + byePoints + forfeitPoints;
+    }
+
+    private float computeForfeitBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
+        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            for (ChesspairingGame game : round.getGames()) {
+                if (game.getResult() != ChesspairingResult.BYE && game.getResult() != ChesspairingResult.BYE) {
+                    if (playerId.equals(game.getWhitePlayer().getPlayerKey())
+                            && game.getResult() == ChesspairingResult.WHITE_WINS_BY_FORFEIT) {
+                        int remainingRounds = totalRounds - i;
+                        float forfeitPoints = 0.5f * remainingRounds;
+                        return forfeitPoints;
+                    } else if (playerId.equals(game.getBlackPlayer().getPlayerKey())
+                            && game.getResult() == ChesspairingResult.BLACK_WINS_BY_FORFEIT) {
+                        int remainingRounds = totalRounds - i;
+                        float forfeitPoints = 0.5f * remainingRounds;
+                        return forfeitPoints;
+                    }
+                }
+            }
+        }
+        return 0.0f;
     }
 
     /**
@@ -337,13 +360,13 @@ public class ChesspairingTournament {
      * @param playerId
      * @return
      */
-    private float computeBuyBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
+    private float computeByeBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
         for (int i = 1; i <= gamesPlayedUntilRound; i++) {
             ChesspairingRound round = this.getRoundByRoundNumber(i);
-            if (round.playerHasBuy(playerId)) {
+            if (round.playerHasBye(playerId)) {
                 int remainingRounds = totalRounds - i;
-                float buyPoints = 0.5f * remainingRounds;
-                return buyPoints;
+                float byePoints = 0.5f * remainingRounds;
+                return byePoints;
             }
         }
         return 0.0f;
