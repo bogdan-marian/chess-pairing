@@ -261,45 +261,45 @@ public class ChesspairingRound {
 		for (ChesspairingGame game: games) {
 			if (player.equals(game.getWhitePlayer())){
 				switch (game.getResult()) {
-				case BYE:
-					return byeValue.getValue();
-				case WHITE_WINS:
-					return 1f;
-				case WHITE_WINS_OPONENT_ABSENT:
-					return 1f;
-				case NOT_DECIDED:
-					throw new IllegalStateException("Game not finished");
-				case DRAW_GAME:
-					return 0.5f;
-				case BLACK_WINS:
-					return 0f;
-				case BLACK_WINS_OPONENT_ABSENT:
-					return 0f;
-					
-				default:
-					throw new IllegalStateException("Game result not treated");
+					case BYE:
+						return byeValue.getValue();
+					case WHITE_WINS:
+						return 1f;
+					case WHITE_WINS_BY_FORFEIT:
+						return 1f;
+					case NOT_DECIDED:
+						throw new IllegalStateException("Game not finished");
+					case DRAW_GAME:
+						return 0.5f;
+					case BLACK_WINS:
+						return 0f;
+					case BLACK_WINS_BY_FORFEIT:
+						return 0f;
+
+					default:
+						throw new IllegalStateException("Game result not treated");
 				}
 			}
 			
 			if (game.getBlackPlayer() != null) {
 				if (player.equals(game.getBlackPlayer())) {
 					switch (game.getResult()) {
-					case BLACK_WINS:
-						return 1f;
-					case BLACK_WINS_OPONENT_ABSENT:
-						return 1f;
-					case WHITE_WINS:
-						return 1f;
-					case WHITE_WINS_OPONENT_ABSENT:
-						return 1f;
-					case DRAW_GAME:
-						return 0.5f;
-					case BYE:
-						return byeValue.getValue();
-					case NOT_DECIDED:
-						throw new IllegalStateException("Game not finished");
-					default:
-						break;
+						case BLACK_WINS:
+							return 1f;
+						case BLACK_WINS_BY_FORFEIT:
+							return 1f;
+						case WHITE_WINS:
+							return 1f;
+						case WHITE_WINS_BY_FORFEIT:
+							return 1f;
+						case DRAW_GAME:
+							return 0.5f;
+						case BYE:
+							return byeValue.getValue();
+						case NOT_DECIDED:
+							throw new IllegalStateException("Game not finished");
+						default:
+							break;
 					}
 				}
 			}

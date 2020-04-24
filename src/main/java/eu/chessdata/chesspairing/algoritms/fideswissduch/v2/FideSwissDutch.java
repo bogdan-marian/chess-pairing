@@ -1,19 +1,9 @@
 package eu.chessdata.chesspairing.algoritms.fideswissduch.v2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import eu.chessdata.chesspairing.algoritms.fideswissduch.Algorithm;
-import eu.chessdata.chesspairing.model.ChesspairingByeValue;
-import eu.chessdata.chesspairing.model.ChesspairingGame;
-import eu.chessdata.chesspairing.model.ChesspairingPlayer;
-import eu.chessdata.chesspairing.model.ChesspairingResult;
-import eu.chessdata.chesspairing.model.ChesspairingRound;
-import eu.chessdata.chesspairing.model.ChesspairingTournament;
+import eu.chessdata.chesspairing.model.*;
+
+import java.util.*;
 
 public class FideSwissDutch implements Algorithm {
 	private ChesspairingTournament tournament;
@@ -133,20 +123,20 @@ public class FideSwissDutch implements Algorithm {
 
 		String whiteKey = game.getWhitePlayer().getPlayerKey();
 		if (playerKey.equals(whiteKey)) {
-			if ((result == ChesspairingResult.WHITE_WINS) || (result == ChesspairingResult.WHITE_WINS_OPONENT_ABSENT)) {
+			if ((result == ChesspairingResult.WHITE_WINS) || (result == ChesspairingResult.WHITE_WINS_BY_FORFEIT)) {
 				return whin;
 			} else if ((result == ChesspairingResult.BLACK_WINS)
-					|| (result == ChesspairingResult.BLACK_WINS_OPONENT_ABSENT)) {
+					|| (result == ChesspairingResult.BLACK_WINS_BY_FORFEIT)) {
 				return lost;
 			}
 		}
 
 		String blackKey = game.getBlackPlayer().getPlayerKey();
 		if (blackKey.equals(playerKey)) {
-			if ((result == ChesspairingResult.BLACK_WINS) || (result == ChesspairingResult.BLACK_WINS_OPONENT_ABSENT)) {
+			if ((result == ChesspairingResult.BLACK_WINS) || (result == ChesspairingResult.BLACK_WINS_BY_FORFEIT)) {
 				return whin;
 			} else if ((result == ChesspairingResult.WHITE_WINS)
-					|| (result == ChesspairingResult.WHITE_WINS_OPONENT_ABSENT)) {
+					|| (result == ChesspairingResult.WHITE_WINS_BY_FORFEIT)) {
 				return lost;
 			}
 		}
@@ -253,8 +243,8 @@ public class FideSwissDutch implements Algorithm {
 			if (result == ChesspairingResult.WHITE_WINS) {
 				return whin;
 			} else if ((result == ChesspairingResult.BLACK_WINS)
-					|| (result == ChesspairingResult.BLACK_WINS_OPONENT_ABSENT)
-					|| (result == ChesspairingResult.WHITE_WINS_OPONENT_ABSENT)) {
+					|| (result == ChesspairingResult.BLACK_WINS_BY_FORFEIT)
+					|| (result == ChesspairingResult.WHITE_WINS_BY_FORFEIT)) {
 				return lost;
 			}
 		}
@@ -264,8 +254,8 @@ public class FideSwissDutch implements Algorithm {
 			if (result == ChesspairingResult.BLACK_WINS) {
 				return whin;
 			} else if ((result == ChesspairingResult.WHITE_WINS)
-					|| (result == ChesspairingResult.WHITE_WINS_OPONENT_ABSENT)
-					|| (result == ChesspairingResult.BLACK_WINS_OPONENT_ABSENT)) {
+					|| (result == ChesspairingResult.WHITE_WINS_BY_FORFEIT)
+					|| (result == ChesspairingResult.BLACK_WINS_BY_FORFEIT)) {
 				return lost;
 			}
 		}
