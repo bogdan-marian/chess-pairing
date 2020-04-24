@@ -90,7 +90,7 @@ public class ChesspairingTournamentTest {
 
     }
 
-
+    @Test
     public void testGetBuchholzPoints() {
 
         ChesspairingTournament tournament = new ChesspairingTournament();

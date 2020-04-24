@@ -231,6 +231,7 @@ public class ChesspairingTournament {
 
         Comparator<ChesspairingPlayer> byPoints = new Comparator<ChesspairingPlayer>() {
             Map<ChesspairingPlayer, Float> pointsMap = computePointsForRound(roundNumber);
+
             @Override
             public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
                 // TODO Auto-generated method stub
@@ -319,9 +320,16 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
-
-
+        List<ChesspairingPlayer> opponents = getOpponentsForPlayer(roundNumber, playerId);
         return -1f;
+    }
 
+    private List<ChesspairingPlayer> getOpponentsForPlayer(int roundNumber, String playerId) {
+        List<ChesspairingPlayer> opponents = new ArrayList<>();
+        for (int i = 1; i <= roundNumber; i++) {
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            Optional<ChesspairingPlayer> optionalOpponent = round.getOpponent(playerId);
+        }
+        return opponents;
     }
 }
