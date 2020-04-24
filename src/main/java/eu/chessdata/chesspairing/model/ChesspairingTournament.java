@@ -230,7 +230,7 @@ public class ChesspairingTournament {
         }
 
         Comparator<ChesspairingPlayer> byPoints = new Comparator<ChesspairingPlayer>() {
-            Map<ChesspairingPlayer, Float> pointsMap = computePointsForRound(roundNumber);
+            Map<ChesspairingPlayer, Float> pointsMap = computePointsUntilRound(roundNumber);
 
             @Override
             public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
@@ -268,7 +268,7 @@ public class ChesspairingTournament {
      * @param roundNumber
      * @return
      */
-    private Map<ChesspairingPlayer, Float> computePointsForRound(int roundNumber) {
+    private Map<ChesspairingPlayer, Float> computePointsUntilRound(int roundNumber) {
         final Map<ChesspairingPlayer, Float> pointsMap = new HashMap<>();
         //final Map<ChesspairingPlayer, Float> pointsMap =  new HashMap<>();
         // set the points to 0
@@ -320,15 +320,42 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
+        Map<ChesspairingPlayer, Float> pointsMap = computePointsUntilRound(roundNumber);
         List<ChesspairingPlayer> opponents = getOpponentsForPlayer(roundNumber, playerId);
-        return -1f;
+        float opponentPoints = 0.0f;
+        for (ChesspairingPlayer opponent : opponents) {
+            opponentPoints += pointsMap.get(opponent);
+        }
+        float buyPoints = computeBuyBuchholzPoints(roundNumber, playerId);
+        return opponentPoints + buyPoints;
     }
+
+    /**
+     * Returns Buchholz points for a player related to the games plaid until a specific round
+     *
+     * @param gamesPlayedUntilRound
+     * @param playerId
+     * @return
+     */
+    private float computeBuyBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
+        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            if (round.playerHasBuy(playerId)) {
+                int remainingRounds = totalRounds - i;
+                float buyPoints = 0.5f * remainingRounds;
+                return buyPoints;
+            }
+        }
+        return 0.0f;
+    }
+
 
     private List<ChesspairingPlayer> getOpponentsForPlayer(int roundNumber, String playerId) {
         List<ChesspairingPlayer> opponents = new ArrayList<>();
         for (int i = 1; i <= roundNumber; i++) {
             ChesspairingRound round = this.getRoundByRoundNumber(i);
             Optional<ChesspairingPlayer> optionalOpponent = round.getOpponent(playerId);
+            optionalOpponent.ifPresent(opponents::add);
         }
         return opponents;
     }

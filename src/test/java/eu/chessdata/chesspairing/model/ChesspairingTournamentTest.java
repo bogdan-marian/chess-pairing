@@ -106,6 +106,7 @@ public class ChesspairingTournamentTest {
         assertEquals(7, tournament.getPlayers().size());
 
         ChesspairingRound round1 = new ChesspairingRound();
+        round1.setRoundNumber(1);
         round1.setGames(
                 Arrays.asList(
                         TestUtils.buildGame(1, p1G, null, ChesspairingResult.BYE),
@@ -121,6 +122,8 @@ public class ChesspairingTournamentTest {
                 Arrays.asList(round1)
         );
 
+
+        float point = tournament.computeBuchholzPoints(1, p1G.getPlayerKey());
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p1G.getPlayerKey()));
     }
 }

@@ -333,4 +333,16 @@ public class ChesspairingRound {
         }
         return Optional.empty();
     }
+
+    public boolean playerHasBuy(String playerId) {
+        for (ChesspairingGame game: this.games){
+            if (game.getResult() == ChesspairingResult.BYE ){
+                ChesspairingPlayer whitePlayer = game.getWhitePlayer();
+                if (whitePlayer.getPlayerKey().equals(playerId)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
