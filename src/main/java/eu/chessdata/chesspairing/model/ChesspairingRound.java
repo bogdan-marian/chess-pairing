@@ -168,6 +168,7 @@ public class ChesspairingRound {
      *
      * @param player that will be located
      * @return a game
+     * @throws IllegalStateException if the player was not paired
      */
     public ChesspairingGame getGame(ChesspairingPlayer player) {
         for (ChesspairingGame game : games) {
@@ -351,5 +352,15 @@ public class ChesspairingRound {
             }
         }
         return false;
+    }
+
+    /**
+     * If checks if a player if paired in this round
+     *
+     * @param player the player
+     * @return true if the player if paired and false otherwise
+     */
+    public boolean isPaired(ChesspairingPlayer player) {
+        return this.presentPlayers.contains(player);
     }
 }

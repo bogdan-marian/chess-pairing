@@ -120,19 +120,21 @@ public class ChesspairingTournamentTest {
                         TestUtils.buildGame(4, p4F, p7C, ChesspairingResult.WHITE_WINS)
                 )
         );
-        round1.setAbsentPlayers(new ArrayList<ChesspairingPlayer>());
+        round1.setAbsentPlayers(new ArrayList<>());
+        round1.setPresentPlayers(Arrays.asList(p1G, p2A, p3B, p4F, p5E, p6D, p7C));
 
         // round 2
         ChesspairingRound round2 = new ChesspairingRound();
         round2.setRoundNumber(2);
         round2.setGames(
                 Arrays.asList(
-                        TestUtils.buildGame(1, p1G, p4F, ChesspairingResult.BLACK_WINS),
+                        TestUtils.buildGame(1, p1G, p4F, ChesspairingResult.WHITE_WINS),
                         TestUtils.buildGame(2, p2A, p5E, ChesspairingResult.DRAW_GAME),
                         TestUtils.buildGame(3, p6D, p7C, ChesspairingResult.DOUBLE_FORFEIT)
                 )
         );
         round2.setAbsentPlayers(Arrays.asList(p3B));
+        round1.setPresentPlayers(Arrays.asList(p1G, p2A, p4F, p5E, p6D, p7C));
 
         tournament.setRounds(
                 Arrays.asList(round1, round2)

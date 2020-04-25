@@ -340,8 +340,9 @@ public class ChesspairingTournament {
 
         // we need to ignore the opponent points in case the current player forfeit the game
         ChesspairingPlayer player = this.getPlayer(playerId);
-        ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);
-        if (null != game) {
+        boolean isPaired = this.getRoundByRoundNumber(roundNumber).isPaired(player);
+        if (isPaired) {
+            ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);
             if (game.playerForfeitedTheGame(player)) {
                 // in this case we do not add the opponent points because the player actually forfeited the game
                 return byePoints + forfeitPoints;
