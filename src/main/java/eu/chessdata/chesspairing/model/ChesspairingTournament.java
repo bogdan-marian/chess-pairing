@@ -329,6 +329,15 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
+        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
+        ChesspairingPlayer player = this.getPlayer(playerId);
+        if (!round.isPaired(player)) {
+            if (roundNumber == 1) {
+                return 0.0f;
+            }
+            return computeBuchholzPoints(roundNumber - 1, playerId);
+        }
+
         Map<ChesspairingPlayer, Float> pointsMap = computePointsUntilRound(roundNumber);
         List<ChesspairingPlayer> opponents = getOpponentsForPlayer(roundNumber, playerId);
         float opponentPoints = 0.0f;
@@ -339,7 +348,6 @@ public class ChesspairingTournament {
         float forfeitPoints = computeForfeitBuchholzPoints(roundNumber, playerId);
 
         // we need to ignore the opponent points in case the current player forfeit the game
-        ChesspairingPlayer player = this.getPlayer(playerId);
         boolean isPaired = this.getRoundByRoundNumber(roundNumber).isPaired(player);
         if (isPaired) {
             ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);

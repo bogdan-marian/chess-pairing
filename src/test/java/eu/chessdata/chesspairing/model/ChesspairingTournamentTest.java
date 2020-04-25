@@ -134,7 +134,7 @@ public class ChesspairingTournamentTest {
                 )
         );
         round2.setAbsentPlayers(Arrays.asList(p3B));
-        round1.setPresentPlayers(Arrays.asList(p1G, p2A, p4F, p5E, p6D, p7C));
+        round2.setPresentPlayers(Arrays.asList(p1G, p2A, p4F, p5E, p6D, p7C));
 
         tournament.setRounds(
                 Arrays.asList(round1, round2)
