@@ -90,6 +90,10 @@ public class ChesspairingTournamentTest {
 
     }
 
+    /**
+     * The actual games implemented by this test can be located in this document
+     * https://docs.google.com/spreadsheets/d/1ikVLzkDVAEpbsk9cJaXeC8l3uL3QY8LUOEvcn1rwZ7A/edit?usp=sharing
+     */
     @Test
     public void testGetBuchholzPoints() {
 
@@ -105,6 +109,7 @@ public class ChesspairingTournamentTest {
         tournament.setPlayers(Arrays.asList(p1G, p2A, p3B, p4F, p5E, p6D, p7C));
         assertEquals(7, tournament.getPlayers().size());
 
+        //round 1
         ChesspairingRound round1 = new ChesspairingRound();
         round1.setRoundNumber(1);
         round1.setGames(
@@ -117,12 +122,23 @@ public class ChesspairingTournamentTest {
         );
         round1.setAbsentPlayers(new ArrayList<ChesspairingPlayer>());
 
+        // round 2
+        ChesspairingRound round2 = new ChesspairingRound();
+        round2.setRoundNumber(2);
+        round2.setGames(
+                Arrays.asList(
+                        TestUtils.buildGame(1, p1G, p4F, ChesspairingResult.BLACK_WINS),
+                        TestUtils.buildGame(2, p2A, p5E, ChesspairingResult.DRAW_GAME),
+                        TestUtils.buildGame(3, p6D, p7C, ChesspairingResult.DOUBLE_FORFEIT)
+                )
+        );
+        round2.setAbsentPlayers(Arrays.asList(p3B));
 
         tournament.setRounds(
-                Arrays.asList(round1)
+                Arrays.asList(round1, round2)
         );
 
-
+        //tests round 1
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p1G.getPlayerKey()));
         assertEquals(0.0f, tournament.computeBuchholzPoints(1, p2A.getPlayerKey()));
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p3B.getPlayerKey()));
@@ -130,5 +146,15 @@ public class ChesspairingTournamentTest {
         assertEquals(0.0f, tournament.computeBuchholzPoints(1, p5E.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(1, p6D.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(1, p7C.getPlayerKey()));
+
+        //tests round2
+        assertEquals(2.5f, tournament.computeBuchholzPoints(2, p1G.getPlayerKey()));
+        assertEquals(0.5f, tournament.computeBuchholzPoints(2, p2A.getPlayerKey()));
+        assertEquals(1.5f, tournament.computeBuchholzPoints(2, p3B.getPlayerKey()));
+        assertEquals(2.0f, tournament.computeBuchholzPoints(2, p4F.getPlayerKey()));
+        assertEquals(2.5f, tournament.computeBuchholzPoints(2, p5E.getPlayerKey()));
+        assertEquals(1.5f, tournament.computeBuchholzPoints(2, p6D.getPlayerKey()));
+        assertEquals(1.0f, tournament.computeBuchholzPoints(2, p7C.getPlayerKey()));
+
     }
 }
