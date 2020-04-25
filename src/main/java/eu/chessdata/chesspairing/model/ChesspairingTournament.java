@@ -341,15 +341,22 @@ public class ChesspairingTournament {
         // we need to ignore the opponent points in case the current player forfeit the game
         ChesspairingPlayer player = this.getPlayer(playerId);
         ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);
-        boolean playerForfeitTheGame = false;
         if (null != game) {
             if (game.playerForfeitedTheGame(player)) {
+                // in this case we do not add the opponent points because the player actually forfeited the game
                 return byePoints + forfeitPoints;
             }
         }
         return opponentPoints + byePoints + forfeitPoints;
     }
 
+    /**
+     * It computes the forfeit Buchholz points. The forfeit points are computed in the same manner as the bye points.
+     *
+     * @param gamesPlayedUntilRound
+     * @param playerId
+     * @return
+     */
     private float computeForfeitBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
         for (int i = 1; i <= gamesPlayedUntilRound; i++) {
             ChesspairingRound round = this.getRoundByRoundNumber(i);
@@ -382,7 +389,7 @@ public class ChesspairingTournament {
     private float computeByeBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
         for (int i = 1; i <= gamesPlayedUntilRound; i++) {
             ChesspairingRound round = this.getRoundByRoundNumber(i);
-            if (round.playerHasBye(playerId)) {
+            if (round.playerIsBye(playerId)) {
                 int remainingRounds = totalRounds - i;
                 float byePoints = 0.5f * remainingRounds;
                 return byePoints;
@@ -392,9 +399,16 @@ public class ChesspairingTournament {
     }
 
 
-    private List<ChesspairingPlayer> getOpponentsForPlayer(int roundNumber, String playerId) {
+    /**
+     * It returns the opponents of a player from first round until a specific round
+     *
+     * @param gamesPlayedUntilRound
+     * @param playerId
+     * @return
+     */
+    private List<ChesspairingPlayer> getOpponentsForPlayer(int gamesPlayedUntilRound, String playerId) {
         List<ChesspairingPlayer> opponents = new ArrayList<>();
-        for (int i = 1; i <= roundNumber; i++) {
+        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
             ChesspairingRound round = this.getRoundByRoundNumber(i);
             Optional<ChesspairingPlayer> optionalOpponent = round.getOpponent(playerId);
             optionalOpponent.ifPresent(opponents::add);

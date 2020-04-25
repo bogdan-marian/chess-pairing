@@ -335,7 +335,13 @@ public class ChesspairingRound {
         return Optional.empty();
     }
 
-    public boolean playerHasBye(String playerId) {
+    /**
+     * It decides if a specific player is bye in this round
+     *
+     * @param playerId
+     * @return
+     */
+    public boolean playerIsBye(String playerId) {
         for (ChesspairingGame game : this.games) {
             if (game.getResult() == ChesspairingResult.BYE) {
                 ChesspairingPlayer whitePlayer = game.getWhitePlayer();
@@ -345,9 +351,5 @@ public class ChesspairingRound {
             }
         }
         return false;
-    }
-
-    public Optional<ChesspairingGame> getGameForPlayerId(String playerId) {
-
     }
 }

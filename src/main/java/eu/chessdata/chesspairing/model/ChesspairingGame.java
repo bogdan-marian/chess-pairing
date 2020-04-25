@@ -205,6 +205,12 @@ public class ChesspairingGame {
         if (this.result == ChesspairingResult.DOUBLE_FORFEIT) {
             return true;
         }
-        if (this.whitePlayer.equals(player) &&)
+        if (this.whitePlayer.equals(player) && this.result == ChesspairingResult.BLACK_WINS_BY_FORFEIT) {
+            return true;
+        }
+        if (this.blackPlayer.equals(player) && this.result == ChesspairingResult.WHITE_WINS_BY_FORFEIT) {
+            return true;
+        }
+        return false;
     }
 }
