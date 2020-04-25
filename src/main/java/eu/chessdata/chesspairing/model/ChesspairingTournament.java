@@ -337,6 +337,17 @@ public class ChesspairingTournament {
             }
             return computeBuchholzPoints(roundNumber - 1, playerId);
         }
+        boolean isPaired = round.isPaired(player);
+        if (isPaired) {
+            ChesspairingGame game = round.getGame(player);
+            if (game.playerForfeitedTheGame(player)) {
+                if (roundNumber == 1) {
+                    return 0.0f;
+                }
+                return computeBuchholzPoints(roundNumber - 1, playerId);
+            }
+        }
+
 
         Map<ChesspairingPlayer, Float> pointsMap = computePointsUntilRound(roundNumber);
         List<ChesspairingPlayer> opponents = getOpponentsForPlayer(roundNumber, playerId);
@@ -347,15 +358,7 @@ public class ChesspairingTournament {
         float byePoints = computeByeBuchholzPoints(roundNumber, playerId);
         float forfeitPoints = computeForfeitBuchholzPoints(roundNumber, playerId);
 
-        // we need to ignore the opponent points in case the current player forfeit the game
-        boolean isPaired = this.getRoundByRoundNumber(roundNumber).isPaired(player);
-        if (isPaired) {
-            ChesspairingGame game = this.getRoundByRoundNumber(roundNumber).getGame(player);
-            if (game.playerForfeitedTheGame(player)) {
-                // in this case we do not add the opponent points because the player actually forfeited the game
-                return byePoints + forfeitPoints;
-            }
-        }
+
         return opponentPoints + byePoints + forfeitPoints;
     }
 
