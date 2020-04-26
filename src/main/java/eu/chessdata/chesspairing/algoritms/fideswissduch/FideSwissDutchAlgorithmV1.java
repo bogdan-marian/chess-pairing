@@ -1,36 +1,23 @@
 package eu.chessdata.chesspairing.algoritms.fideswissduch;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import eu.chessdata.chesspairing.algoritms.comparators.ByElo;
-import eu.chessdata.chesspairing.algoritms.comparators.ByEloReverce;
-import eu.chessdata.chesspairing.algoritms.comparators.ByInitialOrderIdReverce;
-import eu.chessdata.chesspairing.model.ChesspairingColour;
-import eu.chessdata.chesspairing.model.ChesspairingGame;
-import eu.chessdata.chesspairing.model.ChesspairingPlayer;
-import eu.chessdata.chesspairing.model.ChesspairingResult;
-import eu.chessdata.chesspairing.model.ChesspairingRound;
-import eu.chessdata.chesspairing.model.ChesspairingTournament;
-import eu.chessdata.chesspairing.model.PairingSummary;
+import eu.chessdata.chesspairing.algoritms.comparators.ByEloReverse;
+import eu.chessdata.chesspairing.algoritms.comparators.ByInitialOrderIdReverse;
+import eu.chessdata.chesspairing.model.*;
 import eu.chessdata.chesspairing.tools.Tools;
 
-public class FideSwissDutchAlgorithmV1 implements Algorithm {
-	protected ChesspairingTournament mTournament;
+import java.util.*;
+import java.util.Map.Entry;
 
-	/**
-	 * groups of players The key
-	 */
-	protected List<String> presentPlayerKeys;
-	protected Map<String, Double> currentPoints;
-	protected Map<Double, Map<String, ChesspairingPlayer>> groupsByResult;
+public class FideSwissDutchAlgorithmV1 implements Algorithm {
+    protected ChesspairingTournament mTournament;
+
+    /**
+     * groups of players The key
+     */
+    protected List<String> presentPlayerKeys;
+    protected Map<String, Double> currentPoints;
+    protected Map<Double, Map<String, ChesspairingPlayer>> groupsByResult;
 	protected List<Double> orderedGroupKeys;
 	// playerKey to color string
 	protected Map<String, List<ChesspairingColour>> playerKeystoColorHistory;
@@ -456,21 +443,21 @@ public class FideSwissDutchAlgorithmV1 implements Algorithm {
 	 * the last and so on.
 	 */
 	private void generateFirstRound() {
-		if (this.mTournament.getRounds().size() > 0) {
-			throw new IllegalStateException("Tournament allready contains round 1");
-		}
+        if (this.mTournament.getRounds().size() > 0) {
+            throw new IllegalStateException("Tournament allready contains round 1");
+        }
 
-		Collections.sort(mTournament.getPlayers(), new ByEloReverce());
-		List<ChesspairingGame> games = new ArrayList<>();
-		List<ChesspairingPlayer> players = mTournament.getPlayers();
-		int count = 0;
-		ChesspairingGame game = new ChesspairingGame();
-		game.setTableNumber(0);
-		for (ChesspairingPlayer player : players) {
-			count++;
-			if (count % 2 == 1) {
-				int tableNumber = game.getTableNumber() + 1;
-				game = new ChesspairingGame();
+        Collections.sort(mTournament.getPlayers(), new ByEloReverse());
+        List<ChesspairingGame> games = new ArrayList<>();
+        List<ChesspairingPlayer> players = mTournament.getPlayers();
+        int count = 0;
+        ChesspairingGame game = new ChesspairingGame();
+        game.setTableNumber(0);
+        for (ChesspairingPlayer player : players) {
+            count++;
+            if (count % 2 == 1) {
+                int tableNumber = game.getTableNumber() + 1;
+                game = new ChesspairingGame();
 				game.setTableNumber(tableNumber);
 				game.setWhitePlayer(player);
 				if (count == players.size()) {
@@ -666,26 +653,26 @@ public class FideSwissDutchAlgorithmV1 implements Algorithm {
 	 */
 	private boolean pareGroup(Double groupKey, int roundNumber) {
 		Map<String, ChesspairingPlayer> group = this.groupsByResult.get(groupKey);
-		//<debug>
-		if (group == null){
-			System.out.println("group is null");
-		}
-		//</debug>
-		List<ChesspairingPlayer> players = new ArrayList<>();
-		for (Entry<String, ChesspairingPlayer> entry : group.entrySet()) {
-			players.add(entry.getValue());
-		}
-		// order the group
-		Collections.sort(players, new ByInitialOrderIdReverce());
-		Collections.sort(players, new ByElo());
-		// by points just in case it was a downfloater in the group
-		Collections.sort(players, new Comparator<ChesspairingPlayer>() {
-			@Override
-			public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
-				Double pointsO1 = currentPoints.get(o1.getPlayerKey());
-				Double pointsO2 = currentPoints.get(o2.getPlayerKey());
-				return Double.compare(pointsO1, pointsO2);
-			}
+        //<debug>
+        if (group == null) {
+            System.out.println("group is null");
+        }
+        //</debug>
+        List<ChesspairingPlayer> players = new ArrayList<>();
+        for (Entry<String, ChesspairingPlayer> entry : group.entrySet()) {
+            players.add(entry.getValue());
+        }
+        // order the group
+        Collections.sort(players, new ByInitialOrderIdReverse());
+        Collections.sort(players, new ByElo());
+        // by points just in case it was a downfloater in the group
+        Collections.sort(players, new Comparator<ChesspairingPlayer>() {
+            @Override
+            public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
+                Double pointsO1 = currentPoints.get(o1.getPlayerKey());
+                Double pointsO2 = currentPoints.get(o2.getPlayerKey());
+                return Double.compare(pointsO1, pointsO2);
+            }
 		});
 
 		if (players.size() % 2 != 0) {
@@ -907,27 +894,27 @@ public class FideSwissDutchAlgorithmV1 implements Algorithm {
 	 */
 	private boolean downfloatSomeoneInGroup(Double groupKey) {
 		int lastIndex = this.orderedGroupKeys.size() - 1;
-		int thisIndex = this.orderedGroupKeys.indexOf(groupKey);
-		Map<String, ChesspairingPlayer> group = groupsByResult.get(groupKey);
+        int thisIndex = this.orderedGroupKeys.indexOf(groupKey);
+        Map<String, ChesspairingPlayer> group = groupsByResult.get(groupKey);
 
-		// order the players
-		List<ChesspairingPlayer> players = new ArrayList<>();
-		for (Entry<String, ChesspairingPlayer> entry : group.entrySet()) {
-			players.add(entry.getValue());
-		}
+        // order the players
+        List<ChesspairingPlayer> players = new ArrayList<>();
+        for (Entry<String, ChesspairingPlayer> entry : group.entrySet()) {
+            players.add(entry.getValue());
+        }
 
-		Collections.sort(players, new ByElo());
-		Collections.sort(players, new ByInitialOrderIdReverce());
-		Collections.sort(players, new Comparator<ChesspairingPlayer>() {
-			@Override
-			public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
-				int countO1 = 0;
-				if (currentDownfloaters.containsKey(o1.getPlayerKey())) {
-					countO1++;
-				}
-				int countO2 = 0;
-				if (currentDownfloaters.containsKey(o2.getPlayerKey())) {
-					countO2++;
+        Collections.sort(players, new ByElo());
+        Collections.sort(players, new ByInitialOrderIdReverse());
+        Collections.sort(players, new Comparator<ChesspairingPlayer>() {
+            @Override
+            public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
+                int countO1 = 0;
+                if (currentDownfloaters.containsKey(o1.getPlayerKey())) {
+                    countO1++;
+                }
+                int countO2 = 0;
+                if (currentDownfloaters.containsKey(o2.getPlayerKey())) {
+                    countO2++;
 				}
 				return Integer.compare(countO1, countO2);
 			}

@@ -1,6 +1,7 @@
 package eu.chessdata.chesspairing.model;
 
-import eu.chessdata.chesspairing.algoritms.comparators.ByInitialOrderIdReverce;
+import eu.chessdata.chesspairing.algoritms.comparators.ByBuchholzPointsReverse;
+import eu.chessdata.chesspairing.algoritms.comparators.ByInitialOrderIdReverse;
 import eu.chessdata.chesspairing.algoritms.comparators.ChainedComparator;
 
 import java.util.*;
@@ -256,9 +257,11 @@ public class ChesspairingTournament {
             }
         };
 
-        Comparator<ChesspairingPlayer> byRevercedInitialOrder = new ByInitialOrderIdReverce();
+        Comparator<ChesspairingPlayer> byReversedInitialOrder = new ByInitialOrderIdReverse();
 
-        ChainedComparator chainedComparator = new ChainedComparator(byPoints, byDirectMatches, byRevercedInitialOrder);
+        Comparator<ChesspairingPlayer> byBuchholzReverse = new ByBuchholzPointsReverse(roundNumber, this);
+
+        ChainedComparator chainedComparator = new ChainedComparator(byPoints, byBuchholzReverse, byDirectMatches, byReversedInitialOrder);
 
         Collections.sort(standings, chainedComparator);
 

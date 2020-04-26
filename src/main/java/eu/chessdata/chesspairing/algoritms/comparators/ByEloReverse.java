@@ -1,10 +1,15 @@
 package eu.chessdata.chesspairing.algoritms.comparators;
 
-import java.util.Comparator;
-
 import eu.chessdata.chesspairing.model.ChesspairingPlayer;
 
-public class ByInitialOrderIdReverce implements Comparator<ChesspairingPlayer> {
+import java.util.Comparator;
+
+/**
+ * It sorts in the descending order the players by elo
+ *
+ * @author bogdan
+ */
+public class ByEloReverse implements Comparator<ChesspairingPlayer> {
 
 	@Override
 	public int compare(ChesspairingPlayer o1, ChesspairingPlayer o2) {
@@ -14,7 +19,10 @@ public class ByInitialOrderIdReverce implements Comparator<ChesspairingPlayer> {
 		if (o2 == null) {
 			throw new IllegalStateException("Player o2 is null");
 		}
-		// use the default integer compare for help
-		return -1 * Integer.compare(o1.getInitialOrderId(), o2.getInitialOrderId());
+		
+		int elo1 = o1.getElo();
+		int elo2 = o2.getElo();
+		//just multiply by -1 the default Integer compare
+		return -1* Integer.compare(elo1, elo2);
 	}
 }
