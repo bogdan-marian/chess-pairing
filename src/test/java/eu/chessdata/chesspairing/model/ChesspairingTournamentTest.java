@@ -161,16 +161,16 @@ public class ChesspairingTournamentTest {
         assertEquals(0.0f, tournament.computeBuchholzPoints(1, p2A.getPlayerKey()));
         assertEquals(1.5f, tournament.computeBuchholzPoints(1, p3B.getPlayerKey()));
         assertEquals(0.0f, tournament.computeBuchholzPoints(1, p4F.getPlayerKey()));
-        assertEquals(0.0f, tournament.computeBuchholzPoints(1, p5E.getPlayerKey()));
+        assertEquals(1.0f, tournament.computeBuchholzPoints(1, p5E.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(1, p6D.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(1, p7C.getPlayerKey()));
 
         //tests round2
-        assertEquals(2.5f, tournament.computeBuchholzPoints(2, p1G.getPlayerKey()));
+        assertEquals(1.5f, tournament.computeBuchholzPoints(2, p1G.getPlayerKey()));
         assertEquals(0.5f, tournament.computeBuchholzPoints(2, p2A.getPlayerKey()));
         assertEquals(1.5f, tournament.computeBuchholzPoints(2, p3B.getPlayerKey()));
-        assertEquals(2.0f, tournament.computeBuchholzPoints(2, p4F.getPlayerKey()));
-        assertEquals(2.5f, tournament.computeBuchholzPoints(2, p5E.getPlayerKey()));
+        assertEquals(1.0f, tournament.computeBuchholzPoints(2, p4F.getPlayerKey()));
+        assertEquals(1.5f, tournament.computeBuchholzPoints(2, p5E.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(2, p6D.getPlayerKey()));
         assertEquals(1.0f, tournament.computeBuchholzPoints(2, p7C.getPlayerKey()));
 

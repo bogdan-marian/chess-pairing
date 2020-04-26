@@ -213,4 +213,72 @@ public class ChesspairingGame {
         }
         return false;
     }
+
+    /**
+     * It computes the Buchholz points won by a player only from this round
+     *
+     * @param player
+     * @return
+     */
+    public float getBuchholzPointsWonInGame(ChesspairingPlayer player, int currentRound, int totalRounds) {
+
+        if (!playerInGame(player)) {
+            throw new IllegalStateException("Player not in game");
+        }
+
+        float byeOrForfeitPoints = 0.5f * (totalRounds - currentRound);
+
+        if (result == ChesspairingResult.BYE) {
+            return byeOrForfeitPoints;
+        }
+        if (result == ChesspairingResult.DOUBLE_FORFEIT) {
+            return 0.0f;
+        }
+        if (result == ChesspairingResult.DRAW_GAME) {
+            return 0.5f;
+        }
+
+        if (whitePlayer.equals(player)) {
+            //white player
+            switch (result) {
+                case WHITE_WINS:
+                    return 0.0f;
+                case WHITE_WINS_BY_FORFEIT:
+                    return byeOrForfeitPoints;
+                case BLACK_WINS:
+                case BLACK_WINS_BY_FORFEIT:
+                    return 1.0f;
+            }
+            throw new IllegalStateException("Case not treated for result white player" + result);
+        } else {
+            //black player
+            switch (result) {
+                case BLACK_WINS:
+                    return 0.0f;
+                case BLACK_WINS_BY_FORFEIT:
+                    return byeOrForfeitPoints;
+                case WHITE_WINS:
+                case WHITE_WINS_BY_FORFEIT:
+                    return 1.0f;
+            }
+            throw new IllegalStateException("Case not treated for result black player" + result);
+        }
+
+    }
+
+    /**
+     * It decides if a specific player is part of this game
+     *
+     * @param player the player
+     * @return true if the player plays in game and false otherwise
+     */
+    private boolean playerInGame(ChesspairingPlayer player) {
+        if (player.equals(this.whitePlayer)) {
+            return true;
+        }
+        if (result != ChesspairingResult.BYE && player.equals(this.blackPlayer)) {
+            return true;
+        }
+        return false;
+    }
 }

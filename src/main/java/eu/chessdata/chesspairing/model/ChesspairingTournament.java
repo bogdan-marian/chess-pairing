@@ -294,10 +294,6 @@ public class ChesspairingTournament {
                         pointsMap.put(player, result);
                     }
                 }
-                // Float points = round.getPointsFor(player, this.getChesspairingByeValue());
-                // Float initialPoints = pointsMap.get(player);
-                // Float result = points + initialPoints;
-                // pointsMap.put(player, result);
             }
         }
         return pointsMap;
@@ -322,6 +318,23 @@ public class ChesspairingTournament {
     }
 
     /**
+     * It computes the Buchholz points won by a player ony by the game from a specific round
+     *
+     * @param roundNumber the round number
+     * @param playerId    the player id
+     * @return float value
+     */
+    public float getBuchholzPointsWonInRound(int roundNumber, String playerId) {
+        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
+        ChesspairingPlayer player = this.getPlayer(playerId);
+        if (!round.isPaired(player)) {
+            return 0.0f;
+        }
+        ChesspairingGame game = round.getGame(player);
+        return (game.getBuchholzPointsWonInGame(player, roundNumber, totalRounds));
+    }
+
+    /**
      * It computes the BuchholzPoints for a specific player in a specific round
      *
      * @param roundNumber the round number
@@ -329,102 +342,11 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
-        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
-        ChesspairingPlayer player = this.getPlayer(playerId);
-        if (!round.isPaired(player)) {
-            if (roundNumber == 1) {
-                return 0.0f;
-            }
-            return computeBuchholzPoints(roundNumber - 1, playerId);
+        float points = 0.0f;
+        for (int i = 1; i <= roundNumber; i++) {
+            points += getBuchholzPointsWonInRound(i, playerId);
         }
-        boolean isPaired = round.isPaired(player);
-        if (isPaired) {
-            ChesspairingGame game = round.getGame(player);
-            if (game.playerForfeitedTheGame(player)) {
-                if (roundNumber == 1) {
-                    return 0.0f;
-                }
-                return computeBuchholzPoints(roundNumber - 1, playerId);
-            }
-        }
-
-
-        Map<ChesspairingPlayer, Float> pointsMap = computePointsUntilRound(roundNumber);
-        List<ChesspairingPlayer> opponents = getOpponentsForPlayer(roundNumber, playerId);
-        float opponentPoints = 0.0f;
-        for (ChesspairingPlayer opponent : opponents) {
-            opponentPoints += pointsMap.get(opponent);
-        }
-        float byePoints = computeByeBuchholzPoints(roundNumber, playerId);
-        float forfeitPoints = computeForfeitBuchholzPoints(roundNumber, playerId);
-
-
-        return opponentPoints + byePoints + forfeitPoints;
+        return points;
     }
 
-    /**
-     * It computes the forfeit Buchholz points. The forfeit points are computed in the same manner as the bye points.
-     *
-     * @param gamesPlayedUntilRound
-     * @param playerId
-     * @return
-     */
-    private float computeForfeitBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
-        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
-            ChesspairingRound round = this.getRoundByRoundNumber(i);
-            for (ChesspairingGame game : round.getGames()) {
-                if (game.getResult() != ChesspairingResult.BYE && game.getResult() != ChesspairingResult.BYE) {
-                    if (playerId.equals(game.getWhitePlayer().getPlayerKey())
-                            && game.getResult() == ChesspairingResult.WHITE_WINS_BY_FORFEIT) {
-                        int remainingRounds = totalRounds - i;
-                        float forfeitPoints = 0.5f * remainingRounds;
-                        return forfeitPoints;
-                    } else if (playerId.equals(game.getBlackPlayer().getPlayerKey())
-                            && game.getResult() == ChesspairingResult.BLACK_WINS_BY_FORFEIT) {
-                        int remainingRounds = totalRounds - i;
-                        float forfeitPoints = 0.5f * remainingRounds;
-                        return forfeitPoints;
-                    }
-                }
-            }
-        }
-        return 0.0f;
-    }
-
-    /**
-     * Returns Buchholz points for a player related to the games plaid until a specific round
-     *
-     * @param gamesPlayedUntilRound
-     * @param playerId
-     * @return
-     */
-    private float computeByeBuchholzPoints(int gamesPlayedUntilRound, String playerId) {
-        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
-            ChesspairingRound round = this.getRoundByRoundNumber(i);
-            if (round.playerIsBye(playerId)) {
-                int remainingRounds = totalRounds - i;
-                float byePoints = 0.5f * remainingRounds;
-                return byePoints;
-            }
-        }
-        return 0.0f;
-    }
-
-
-    /**
-     * It returns the opponents of a player from first round until a specific round
-     *
-     * @param gamesPlayedUntilRound
-     * @param playerId
-     * @return
-     */
-    private List<ChesspairingPlayer> getOpponentsForPlayer(int gamesPlayedUntilRound, String playerId) {
-        List<ChesspairingPlayer> opponents = new ArrayList<>();
-        for (int i = 1; i <= gamesPlayedUntilRound; i++) {
-            ChesspairingRound round = this.getRoundByRoundNumber(i);
-            Optional<ChesspairingPlayer> optionalOpponent = round.getOpponent(playerId);
-            optionalOpponent.ifPresent(opponents::add);
-        }
-        return opponents;
-    }
 }
