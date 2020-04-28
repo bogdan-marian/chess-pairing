@@ -352,4 +352,28 @@ public class ChesspairingTournament {
         return points;
     }
 
+    /**
+     * It computes the points for a specific player in a specific round
+     *
+     * @param roundNumber
+     * @param playerId
+     * @return
+     */
+    public float computePoints(int roundNumber, String playerId) {
+        float points = 0.0f;
+        for (int i = 1; i <= roundNumber; i++) {
+            points += getPointsWonInRound(i, playerId);
+        }
+        return points;
+    }
+
+    private float getPointsWonInRound(int roundNumber, String playerId) {
+        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
+        ChesspairingPlayer player = this.getPlayer(playerId);
+        if (!round.isPaired(player)) {
+            return 0.0f;
+        }
+        ChesspairingGame game = round.getGame(player);
+        return (game.getPointsForPlayer(player));
+    }
 }
