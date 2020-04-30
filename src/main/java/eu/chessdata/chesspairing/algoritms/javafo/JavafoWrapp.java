@@ -1,11 +1,5 @@
 package eu.chessdata.chesspairing.algoritms.javafo;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import eu.chessdata.chesspairing.algoritms.fideswissduch.Algorithm;
 import eu.chessdata.chesspairing.model.ChesspairingGame;
 import eu.chessdata.chesspairing.model.ChesspairingPlayer;
@@ -13,6 +7,12 @@ import eu.chessdata.chesspairing.model.ChesspairingRound;
 import eu.chessdata.chesspairing.model.ChesspairingTournament;
 import eu.chessdata.chesspairing.tools.Trf;
 import javafo.api.JaVaFoApi;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JavafoWrapp implements Algorithm {
 
@@ -22,6 +22,7 @@ public class JavafoWrapp implements Algorithm {
 		// int nextRoundNumber = tournament.getRounds().size() + 1;
 
 		String trf = Trf.getTrf(tournament);
+		System.out.println(trf);
 		InputStream inputStream = new ByteArrayInputStream(trf.getBytes());
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		JaVaFoApi.exec(1000, "Hello World", inputStream, outputStream);
