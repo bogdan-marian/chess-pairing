@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertNotNull;
 
 public class ChesspairingTournamentTest {
     @BeforeClass
-    public static void checGeneratedFilesFolder() {
+    public static void checkGeneratedFilesFolder() {
         TestUtils.createIfNotPresentGeneratedFilesFolder();
     }
 
@@ -26,7 +26,7 @@ public class ChesspairingTournamentTest {
      * basic serialize and deserialize of a tournament
      */
     @Test
-    public void simpetBuildTournament() {
+    public void snippetBuildTournament() {
         ChesspairingTournament tournament = TestUtils.buildTournament("Simple chess tournament");
         String stringTournament = Api.serializeTournament(tournament);
         ChesspairingTournament secondTournament = Api.deserializeTournament(stringTournament);
