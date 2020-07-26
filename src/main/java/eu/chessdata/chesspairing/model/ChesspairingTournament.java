@@ -376,4 +376,10 @@ public class ChesspairingTournament {
         ChesspairingGame game = round.getGame(player);
         return (game.getPointsForPlayer(player));
     }
+
+    public Optional<ChesspairingPlayer> getPlayerById(String id) {
+        Optional<ChesspairingPlayer> player = getPlayers().stream()
+                .filter(p -> p.getPlayerKey().equals(id)).findFirst();
+        return player;
+    }
 }

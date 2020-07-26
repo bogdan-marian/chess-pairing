@@ -1,0 +1,635 @@
+{
+  "Swar": {
+    "TournamentDesc": {
+      "Version": "v4.40",
+      "Tournament": "Chessout-export",
+      "Organizer": "",
+      "ClubOrLogo": "",
+      "Place": "Online",
+      "Arbiter_1": "Chessout",
+      "Arbiter_2": "Chessout",
+      "StartDate": "26/07/2020",
+      "EndDate": "26/07/2020",
+      "RateOfPlay": "105 min/40 moves + 15 min. QPF",
+      "NbOfRounds": 4,
+      "SepareteCategories": 0,
+      "FideHomologation ": 0,
+      "FideTournamentId": "",
+      "FideArbiterId_1": "",
+      "FideArbiterName_1": "",
+      "FideArbiterId_2": "",
+      "FideArbiterName_2": "",
+      "TournamentType": "Swiss",
+      "AmericainPresence": 0,
+      "MultiplePairing": 0,
+      "FirstTableNumber": 1,
+      "SW321_Win": "0.0",
+      "SW321_Null": "0.0",
+      "SW321_Loss": "0.0",
+      "SW321_Bye": "0.0",
+      "SW321_Presence": "0.0",
+      "EloUsed": "Elo National",
+      "TournamentStd": "Standard",
+      "ByeValue": "1",
+      "AbsValue": "½",
+      "NumberOfTimes": "0",
+      "ToRound": "0",
+      "Federation": "----",
+      "NbDates": 4,
+      "NbPlayers": 8,
+      "DatesArray": [
+        {
+          "DateValue": "26/07/2020"
+        },
+        {
+          "DateValue": "26/07/2020"
+        },
+        {
+          "DateValue": "26/07/2020"
+        },
+        {
+          "DateValue": "26/07/2020"
+        }
+      ],
+      "TieBreaks": [
+        {
+          "Type": "Direct Encounter"
+        },
+        {
+          "Type": "Nb.Games Won"
+        },
+        {
+          "Type": "Nb.played with Black"
+        },
+        {
+          "Type": "Average Rating Opp."
+        },
+        {
+          "Type": "Bucholtz Cut 1"
+        }
+      ]
+    },
+    "Player": [
+      {
+        "Ranking": 7,
+        "Name": "Catalin",
+        "Ni": 6,
+        "Rank": 1,
+        "CatIndex": 0,
+        "BirthDate": "1978",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10006,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 2043,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 118,
+        "ClubName": "*Mat of Pat",
+        "NbOfParts": 1,
+        "Points": "0.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "0"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "0"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 1.00"
+          }
+        ],
+        "Performance": 843,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "1",
+            "OpponentNi": 4,
+            "OpponentName": "Cezar",
+            "Result": "0",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "3",
+            "OpponentNi": 7,
+            "OpponentName": "Rares",
+            "Result": "-",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 5,
+        "Name": "Bogdan",
+        "Ni": 1,
+        "Rank": 2,
+        "CatIndex": 0,
+        "BirthDate": "1995",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10001,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 303,
+        "ClubName": "KBSK Brugge",
+        "NbOfParts": 1,
+        "Points": "0.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "0"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "1"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 1.00"
+          }
+        ],
+        "Performance": -800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "2",
+            "OpponentNi": 5,
+            "OpponentName": "Adrian",
+            "Result": "0",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "4",
+            "OpponentNi": 8,
+            "OpponentName": "Cristina",
+            "Result": "-",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 3,
+        "Name": "Lacra",
+        "Ni": 2,
+        "Rank": 3,
+        "CatIndex": 0,
+        "BirthDate": "1996",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10002,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 303,
+        "ClubName": "KBSK Brugge",
+        "NbOfParts": 1,
+        "Points": "1.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "1"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "0"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 0.00"
+          }
+        ],
+        "Performance": 800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "3",
+            "OpponentNi": 7,
+            "OpponentName": "Rares",
+            "Result": "1",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "1",
+            "OpponentNi": 4,
+            "OpponentName": "Cezar",
+            "Result": "-",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 2,
+        "Name": "Calin",
+        "Ni": 3,
+        "Rank": 4,
+        "CatIndex": 0,
+        "BirthDate": "1998",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10003,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 303,
+        "ClubName": "KBSK Brugge",
+        "NbOfParts": 1,
+        "Points": "1.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "1"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "1"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 0.00"
+          }
+        ],
+        "Performance": 800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "4",
+            "OpponentNi": 8,
+            "OpponentName": "Cristina",
+            "Result": "1",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "2",
+            "OpponentNi": 5,
+            "OpponentName": "Adrian",
+            "Result": "-",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 1,
+        "Name": "Cezar",
+        "Ni": 4,
+        "Rank": 5,
+        "CatIndex": 0,
+        "BirthDate": "1995",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10009,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 318,
+        "ClubName": "Blankenberge",
+        "NbOfParts": 1,
+        "Points": "1.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "1"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "1"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "2043"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 0.00"
+          }
+        ],
+        "Performance": 2843,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "1",
+            "OpponentNi": 6,
+            "OpponentName": "Catalin",
+            "Result": "1",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "1",
+            "OpponentNi": 2,
+            "OpponentName": "Lacra",
+            "Result": "-",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 4,
+        "Name": "Adrian",
+        "Ni": 5,
+        "Rank": 6,
+        "CatIndex": 0,
+        "BirthDate": "1994",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10005,
+        "FideId": 231614,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 303,
+        "ClubName": "KBSK Brugge",
+        "NbOfParts": 1,
+        "Points": "1.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "1"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "0"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 0.00"
+          }
+        ],
+        "Performance": 800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "2",
+            "OpponentNi": 1,
+            "OpponentName": "Bogdan",
+            "Result": "1",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "2",
+            "OpponentNi": 3,
+            "OpponentName": "Calin",
+            "Result": "-",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 6,
+        "Name": "Rares",
+        "Ni": 7,
+        "Rank": 7,
+        "CatIndex": 0,
+        "BirthDate": "1988",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10007,
+        "FideId": 219274,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 313,
+        "ClubName": "Waregem",
+        "NbOfParts": 1,
+        "Points": "0.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "0"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "1"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 1.00"
+          }
+        ],
+        "Performance": -800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "3",
+            "OpponentNi": 2,
+            "OpponentName": "Lacra",
+            "Result": "0",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "3",
+            "OpponentNi": 6,
+            "OpponentName": "Catalin",
+            "Result": "-",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      },
+      {
+        "Ranking": 8,
+        "Name": "Cristina",
+        "Ni": 8,
+        "Rank": 8,
+        "CatIndex": 0,
+        "BirthDate": "1999",
+        "Sex": "Male",
+        "Country": "BEL",
+        "NationalId": 10008,
+        "FideId": 0,
+        "Affiliated": 0,
+        "NationalElo": 0,
+        "FideElo": 0,
+        "Titel": "",
+        "ClubNumber": 303,
+        "ClubName": "KBSK Brugge",
+        "NbOfParts": 1,
+        "Points": "0.0",
+        "TieBreak": [
+          {
+            "Type": "Direct Encounter",
+            "Points": "-"
+          },
+          {
+            "Type": "Nb.Games Won",
+            "Points": "0"
+          },
+          {
+            "Type": "Nb.played with Black",
+            "Points": "0"
+          },
+          {
+            "Type": "Average Rating Opp.",
+            "Points": "0"
+          },
+          {
+            "Type": "Bucholtz Cut 1",
+            "Points": " 1.00"
+          }
+        ],
+        "Performance": -800,
+        "Absent": "Present",
+        "AbsentAtRounds": "",
+        "ExtraPts": "0.0",
+        "SpecialPts": "0.0",
+        "NbRounds": 2,
+        "RoundArray": [
+          {
+            "RoundNr": 1,
+            "Tabel": "4",
+            "OpponentNi": 3,
+            "OpponentName": "Calin",
+            "Result": "0",
+            "Color": "White",
+            "Float": "=",
+            "XtraPts": "0.0"
+          },
+          {
+            "RoundNr": 2,
+            "Tabel": "4",
+            "OpponentNi": 1,
+            "OpponentName": "Bogdan",
+            "Result": "-",
+            "Color": "Black",
+            "Float": "=",
+            "XtraPts": "0.0"
+          }
+        ]
+      }
+    ]
+  }
+}
