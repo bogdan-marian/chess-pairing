@@ -11,11 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Swar implementation of the {@link ImportExportTool}
+ * <p>
+ * Rank is initial ranking
+ * Ranking is rank at specific tournament export time
+ */
 public class Swar implements ImportExportTool {
 
     private ObjectMapper mapper = new ObjectMapper();
     private Map<String, ChesspairingPlayer> niMap = new HashMap<>();
-
 
     @Override
     public ChesspairingTournament buildFromStream(InputStream sourceStream) throws IOException {
@@ -33,9 +38,10 @@ public class Swar implements ImportExportTool {
 
         tournament.setRounds(decodeTournamentRounds(swarNode));
 
+        tournament.setStandings(decodeStandings(swarNode));
+
         return tournament;
     }
-
 
     private List<ChesspairingPlayer> decodeTournamentPlayers(JsonNode swarNode) {
         List<ChesspairingPlayer> players = new ArrayList<>();
@@ -143,6 +149,57 @@ public class Swar implements ImportExportTool {
 
         List<ChesspairingRound> rounds = new ArrayList<>(mapRounds.values());
         return rounds;
+    }
+
+    private List<ChesspairingStanding> decodeStandings(JsonNode swarNode) {
+        Map<Integer, ChesspairingRound> mapRounds = new HashMap<>();
+        JsonNode jsonPlayers = swarNode.get("Player");
+
+        List<ChesspairingStanding> standings = new ArrayList<>();
+
+        for (JsonNode playerNode : jsonPlayers) {
+
+            ChesspairingStanding standing = new ChesspairingStanding();
+            standings.add(standing);
+
+            String ni = playerNode.get("Ni").asText();
+            ChesspairingPlayer playerThis = niMap.get(ni);
+            standing.setPlayer(playerThis);
+
+            int rank = playerNode.get("Ranking").asInt();
+            standing.setRank(rank);
+
+            JsonNode tieBreakNode = playerNode.get("TieBreak");
+
+            for (JsonNode tieItemNode : tieBreakNode) {
+
+                String type = tieItemNode.get("Type").asText();
+                String points = tieItemNode.get("Points").asText();
+                switch (type) {
+                    case "Direct Encounter":
+                        if (points.equals("-")) {
+                            standing.setDirectEncounter(0f);
+                        } else {
+                            standing.setDirectEncounter(Float.valueOf(points));
+                        }
+                        break;
+                    case "Nb.Games Won":
+                        standing.setGamesWon(Integer.valueOf(points));
+                        break;
+                    case "Nb.played with Black":
+                        standing.setGamesPlayedWithBlack(Integer.valueOf(points));
+                        break;
+                    case "Average Rating Opp.":
+                        standing.setAverageRatingOpp(Float.valueOf(points));
+                        break;
+                    case "Bucholtz Cut 1":
+                        standing.setBucholtzCut1(Float.valueOf(points));
+                        break;
+                }
+            }
+
+        }
+        return standings;
     }
 
 }

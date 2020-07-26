@@ -25,7 +25,7 @@ public class ChesspairingTournament {
     private List<ChesspairingPlayer> players = new ArrayList<ChesspairingPlayer>();
     private List<ChesspairingRound> rounds = new ArrayList<ChesspairingRound>();
     private PairingSummary parringSummary;
-    private List<ChesspairingStanding> chesspairingStandings = new ArrayList<>();
+    private List<ChesspairingStanding> standings = new ArrayList<>();
     private List<ChesspairingStanding.Type> tieBreaks = new ArrayList<>();
 
     // <getters and setters>
@@ -146,12 +146,12 @@ public class ChesspairingTournament {
         this.parringSummary = parringSummary;
     }
 
-    public List<ChesspairingStanding> getChesspairingStandings() {
-        return chesspairingStandings;
+    public List<ChesspairingStanding> getStandings() {
+        return standings;
     }
 
-    public void setChesspairingStandings(List<ChesspairingStanding> chesspairingStandings) {
-        this.chesspairingStandings = chesspairingStandings;
+    public void setStandings(List<ChesspairingStanding> standings) {
+        this.standings = standings;
     }
 
     public List<ChesspairingStanding.Type> getTieBreaks() {
