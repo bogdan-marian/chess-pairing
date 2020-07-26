@@ -1,5 +1,7 @@
 package eu.chessdata.chesspairing.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.gson.Gson;
 import eu.chessdata.chesspairing.tools.Tools;
 
@@ -167,8 +169,16 @@ public class TestUtils {
             throw new IllegalStateException(e.getMessage());
         }
         Gson gson = Tools.getGson();
-        ChesspairingTournament tournament = gson.fromJson(reader, ChesspairingTournament.class);
-        return tournament;
+        ObjectMapper objectMapper = new JsonMapper();
+        try {
+            ChesspairingTournament jacksonTournament = objectMapper.readValue(inputStream, ChesspairingTournament.class);
+            System.out.println("Name = " + jacksonTournament.getName());
+            return jacksonTournament;
+        } catch (IOException e) {
+            throw new IllegalStateException("Not decoded by jackson");
+        }
+        /*ChesspairingTournament tournament = gson.fromJson(reader, ChesspairingTournament.class);
+        return tournament;*/
     }
 
     public static ChesspairingGame buildGame(int tableNumber,

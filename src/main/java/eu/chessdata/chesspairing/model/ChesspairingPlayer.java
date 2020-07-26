@@ -1,9 +1,12 @@
 package eu.chessdata.chesspairing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.chessdata.chesspairing.algoritms.fideswissduch.FideSwissDutchAlgorithmV1;
 
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChesspairingPlayer {
     private String name;
     private int elo;
@@ -100,6 +103,7 @@ public class ChesspairingPlayer {
 		this.isPresent = isPresent;
 	}
 
+	@JsonIgnore
 	public void setTournamentPoints(int tournamentPoints) {
 		this.tournamentPoints = tournamentPoints;
 	}
@@ -132,6 +136,7 @@ public class ChesspairingPlayer {
 		return acceleratedPoints;
 	}
 
+	@JsonIgnore
 	public void setAcceleratedPoints(double acceleratedPoints) {
 		this.acceleratedPoints = acceleratedPoints;
 	}
