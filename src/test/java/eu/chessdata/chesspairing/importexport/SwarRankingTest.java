@@ -119,5 +119,19 @@ public class SwarRankingTest {
         ChesspairingPlayer rares = game.getBlackPlayer();
         Assert.assertEquals("Cristina", rares.getName());
         Assert.assertEquals(ChesspairingResult.WHITE_WINS, game.getResult());
+
+        List<ChesspairingStanding> standings = tournament.getStandings();
+        Assert.assertEquals(8, standings.size());
+        for (ChesspairingStanding standing : standings) {
+            if (standing.getRank() == 5) {
+                ChesspairingPlayer catalin = standing.getPlayer();
+                Assert.assertEquals("Bogdan", catalin.getName());
+                Assert.assertEquals("10001", catalin.getPlayerKey());
+
+                Assert.assertEquals(0f, standing.getDirectEncounter(), 1e-8);
+                Assert.assertEquals(1.00, standing.getBucholtzCut1(), 1e-8);
+                Assert.assertEquals(1, standing.getGamesPlayedWithBlack());
+            }
+        }
     }
 }
