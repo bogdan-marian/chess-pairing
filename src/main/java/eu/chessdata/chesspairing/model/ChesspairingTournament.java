@@ -25,6 +25,10 @@ public class ChesspairingTournament {
     private List<ChesspairingPlayer> players = new ArrayList<ChesspairingPlayer>();
     private List<ChesspairingRound> rounds = new ArrayList<ChesspairingRound>();
     private PairingSummary parringSummary;
+    private List<ChesspairingStanding> chesspairingStandings = new ArrayList<>();
+    private List<ChesspairingStanding.Type> tieBreaks = new ArrayList<>();
+
+    // <getters and setters>
 
     public String getName() {
         return name;
@@ -141,6 +145,24 @@ public class ChesspairingTournament {
     public void setParringSummary(PairingSummary parringSummary) {
         this.parringSummary = parringSummary;
     }
+
+    public List<ChesspairingStanding> getChesspairingStandings() {
+        return chesspairingStandings;
+    }
+
+    public void setChesspairingStandings(List<ChesspairingStanding> chesspairingStandings) {
+        this.chesspairingStandings = chesspairingStandings;
+    }
+
+    public List<ChesspairingStanding.Type> getTieBreaks() {
+        return tieBreaks;
+    }
+
+    public void setTieBreaks(List<ChesspairingStanding.Type> tieBreaks) {
+        this.tieBreaks = tieBreaks;
+    }
+
+    // </getters and setters>
 
     /**
      * It returns the player in {@link #players} by player key

@@ -1,12 +1,22 @@
 package eu.chessdata.chesspairing.model;
 
 public class ChesspairingStanding {
+    enum Type {
+        bucholtz, bucholtzCut1, gamesWon, progressive, sunnebornBerger,
+        directEncounter, gamesPlayedWithBlack, averageRatingOpp
+    }
+
     private int rank;
     private ChesspairingPlayer player;
     private float bucholtz;
-    private float gamesWon;
+    private float bucholtzCut1;
+    private int gamesWon;
     private float progressive;
     private float sunnebornBerger;
+    private float directEncounter;
+    private int gamesPlayedWithBlack;
+    private float averageRatingOpp;
+
 
     public ChesspairingStanding() {
         // default constructor
@@ -38,11 +48,19 @@ public class ChesspairingStanding {
         this.bucholtz = bucholtz;
     }
 
-    public float getGamesWon() {
+    public float getBucholtzCut1() {
+        return bucholtzCut1;
+    }
+
+    public void setBucholtzCut1(float bucholtzCut1) {
+        this.bucholtzCut1 = bucholtzCut1;
+    }
+
+    public int getGamesWon() {
         return gamesWon;
     }
 
-    public void setGamesWon(float gamesWon) {
+    public void setGamesWon(int gamesWon) {
         this.gamesWon = gamesWon;
     }
 
@@ -60,6 +78,30 @@ public class ChesspairingStanding {
 
     public void setSunnebornBerger(float sunnebornBerger) {
         this.sunnebornBerger = sunnebornBerger;
+    }
+
+    public float getDirectEncounter() {
+        return directEncounter;
+    }
+
+    public void setDirectEncounter(float directEncounter) {
+        this.directEncounter = directEncounter;
+    }
+
+    public int getGamesPlayedWithBlack() {
+        return gamesPlayedWithBlack;
+    }
+
+    public void setGamesPlayedWithBlack(int gamesPlayedWithBlack) {
+        this.gamesPlayedWithBlack = gamesPlayedWithBlack;
+    }
+
+    public float getAverageRatingOpp() {
+        return averageRatingOpp;
+    }
+
+    public void setAverageRatingOpp(float averageRatingOpp) {
+        this.averageRatingOpp = averageRatingOpp;
     }
 
 
