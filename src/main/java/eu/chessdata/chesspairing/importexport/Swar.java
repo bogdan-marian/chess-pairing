@@ -2,9 +2,7 @@ package eu.chessdata.chesspairing.importexport;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.chessdata.chesspairing.model.ChesspairingPlayer;
-import eu.chessdata.chesspairing.model.ChesspairingRound;
-import eu.chessdata.chesspairing.model.ChesspairingTournament;
+import eu.chessdata.chesspairing.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,8 +56,8 @@ public class Swar implements ImportExportTool {
     }
 
     private List<ChesspairingRound> decodeTournamentRounds(JsonNode swarNode) {
-        List<ChesspairingRound> rounds = new ArrayList<>();
 
+        Map<Integer, ChesspairingRound> mapRounds = new HashMap<>();
         JsonNode jsonPlayers = swarNode.get("Player");
         for (JsonNode playerNode : jsonPlayers) {
             /**
@@ -67,10 +65,83 @@ public class Swar implements ImportExportTool {
              */
             int nbRound = playerNode.get("NbRounds").asInt();
             if (nbRound < 1) {
-                return rounds;
+                return new ArrayList<>();
             }
+            String ni = playerNode.get("Ni").asText();
+            ChesspairingPlayer playerThis = niMap.get(ni);
+
+            JsonNode jsonRoundArray = playerNode.get("RoundArray");
+
+            for (JsonNode jsonGame : jsonRoundArray) {
+                Integer roundId = jsonGame.get("RoundNr").asInt();
+                if (!mapRounds.containsKey(roundId)) {
+                    ChesspairingRound round = new ChesspairingRound();
+                    round.setRoundNumber(roundId);
+                    mapRounds.put(roundId, round);
+                }
+                ChesspairingRound round = mapRounds.get(roundId);
+
+                String tableId = jsonGame.get("Tabel").asText();
+                if (tableId.equals("BYE")) {
+                    throw new IllegalStateException("Please process also bye");
+                }
+                Integer tableNumber = Integer.valueOf(tableId);
+
+                if (!round.hasGameForTable(tableNumber)) {
+                    // build the game
+                    ChesspairingGame game = new ChesspairingGame();
+                    game.setTableNumber(tableNumber);
+                    round.getGames().add(game);
+
+                    String niThat = jsonGame.get("OpponentNi").asText();
+                    ChesspairingPlayer playerThat = niMap.get(niThat);
+
+                    // color
+                    String color = jsonGame.get("Color").asText();
+                    if (color.equals("White")) {
+                        game.setWhitePlayer(playerThis);
+                        game.setBlackPlayer(playerThat);
+                    }
+
+                    if (color.equals("Black")) {
+                        game.setWhitePlayer(playerThat);
+                        game.setBlackPlayer(playerThis);
+                    }
+
+                    // result
+                    String result = jsonGame.get("Result").asText();
+                    if (result.equals("-")) {
+                        game.setResult(ChesspairingResult.NOT_DECIDED);
+                    }
+
+                    if (result.equals("0")) {
+                        if (color.equals("White")) {
+                            game.setResult(ChesspairingResult.BLACK_WINS);
+                        }
+                        if (color.equals("Black")) {
+                            game.setResult(ChesspairingResult.WHITE_WINS);
+                        }
+                    }
+
+                    if (result.equals("1")) {
+                        if (color.equals("White")) {
+                            game.setResult(ChesspairingResult.WHITE_WINS);
+                        }
+                        if (color.equals("Black")) {
+                            game.setResult(ChesspairingResult.BLACK_WINS);
+                        }
+                    }
+
+                    if (result.equals("½")) {
+                        game.setResult(ChesspairingResult.DRAW_GAME);
+                    }
+
+                }
+            }
+
         }
 
+        List<ChesspairingRound> rounds = new ArrayList<>(mapRounds.values());
         return rounds;
     }
 

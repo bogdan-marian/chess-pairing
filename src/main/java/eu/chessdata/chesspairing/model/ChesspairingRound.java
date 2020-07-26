@@ -363,4 +363,17 @@ public class ChesspairingRound {
     public boolean isPaired(ChesspairingPlayer player) {
         return this.presentPlayers.contains(player);
     }
+
+    /**
+     * It checks if this round has game for a specific table number
+     *
+     * @param tableNumber
+     * @return
+     */
+    public boolean hasGameForTable(Integer tableNumber) {
+        Optional<ChesspairingGame> optionalGame = this.games.stream()
+                .filter(game -> game.getTableNumber() == tableNumber)
+                .findFirst();
+        return optionalGame.isPresent();
+    }
 }
