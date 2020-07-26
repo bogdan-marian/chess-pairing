@@ -377,9 +377,13 @@ public class ChesspairingTournament {
         return (game.getPointsForPlayer(player));
     }
 
-    public Optional<ChesspairingPlayer> getPlayerById(String id) {
+    public ChesspairingPlayer getPlayerById(String id) {
         Optional<ChesspairingPlayer> player = getPlayers().stream()
                 .filter(p -> p.getPlayerKey().equals(id)).findFirst();
-        return player;
+        if (player.isPresent()) {
+            return player.get();
+        } else {
+            throw new IllegalStateException("Player not found by id=" + id);
+        }
     }
 }

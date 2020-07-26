@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Optional;
 
 public class SwarTest {
 
@@ -22,8 +21,13 @@ public class SwarTest {
         Swar swar = new Swar();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
-        Optional<ChesspairingPlayer> optionalBogdan = tournament.getPlayerById("10001");
-        Assert.assertTrue(optionalBogdan.isPresent());
-        Assert.assertTrue(optionalBogdan.get().getName().equals("Bogdan"));
+        ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
+        Assert.assertTrue(bogdan.getName().equals("Bogdan"));
+
+        Assert.assertTrue(tournament.getTotalRounds() == 4);
+
+        int pairedRounds = tournament.getRounds().size();
+        Assert.assertTrue(pairedRounds == 0);
+
     }
 }
