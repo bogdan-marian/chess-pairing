@@ -7,10 +7,7 @@ import eu.chessdata.chesspairing.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Swar implementation of the {@link ImportExportTool}
@@ -50,7 +47,22 @@ public class Swar implements ImportExportTool {
 
         tournament.setStandings(decodeStandings(swarNode));
 
+        List<ChesspairingPlayer> orderedPlayers = orderPlayers(tournament.getPlayers());
+        tournament.setPlayers(orderedPlayers);
+
         return tournament;
+    }
+
+    private List<ChesspairingPlayer> orderPlayers(List<ChesspairingPlayer> players) {
+        List<ChesspairingPlayer> copyList = new ArrayList<>();
+        copyList.addAll(players);
+        Collections.sort(copyList, new Comparator<ChesspairingPlayer>() {
+            @Override
+            public int compare(ChesspairingPlayer p0, ChesspairingPlayer p1) {
+                return (p0.getRank() - p1.getRank());
+            }
+        });
+        return copyList;
     }
 
     private List<ChesspairingPlayer> decodeTournamentPlayers(JsonNode swarNode) {
@@ -60,9 +72,12 @@ public class Swar implements ImportExportTool {
         for (JsonNode playerNode : jsonPlayers) {
             String name = playerNode.get("Name").asText();
             String id = playerNode.get("NationalId").asText();
+            int rank = playerNode.get("Ranking").asInt();
             ChesspairingPlayer player = new ChesspairingPlayer();
             player.setName(name);
             player.setPlayerKey(id);
+            player.setRank(rank);
+
             players.add(player);
 
             String ni = playerNode.get("Ni").asText();

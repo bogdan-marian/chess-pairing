@@ -162,6 +162,5 @@ public class SwarTest {
         ChesspairingPlayer colmont = game14.getBlackPlayer();
         Assert.assertEquals("Colmont Aloïs", colmont.getName());
         Assert.assertEquals(ChesspairingResult.BLACK_WINS, game14.getResult());
-
     }
 }
