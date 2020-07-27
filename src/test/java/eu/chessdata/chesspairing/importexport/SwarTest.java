@@ -2,10 +2,7 @@ package eu.chessdata.chesspairing.importexport;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.chessdata.chesspairing.model.ChesspairingGame;
-import eu.chessdata.chesspairing.model.ChesspairingPlayer;
-import eu.chessdata.chesspairing.model.ChesspairingResult;
-import eu.chessdata.chesspairing.model.ChesspairingTournament;
+import eu.chessdata.chesspairing.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -142,5 +139,29 @@ public class SwarTest {
         ChesspairingPlayer rares = game.getBlackPlayer();
         Assert.assertEquals("Cristina", rares.getName());
         Assert.assertEquals(ChesspairingResult.WHITE_WINS, game.getResult());
+    }
+
+    @Test
+    public void loadExportBraineEchecsInterneTest() throws IOException {
+        InputStream inputStream = SwarTest.class.getResourceAsStream(
+                "/importexport/swar/Braine-echecs-interne.json");
+
+        ObjectMapper mapper = new ObjectMapper();
+        Swar swar = new Swar();
+        ChesspairingTournament tournament = swar.buildFromStream(inputStream);
+        Assert.assertEquals("Braine échecs interne", tournament.getName());
+
+        ChesspairingPlayer smirnov = tournament.getPlayerById("17257");
+        Assert.assertEquals("Smirnov, Stepan", smirnov.getName());
+
+        ChesspairingPlayer vanlaer = tournament.getPlayerById("21560");
+        Assert.assertEquals("Vanlaer, Typhene", vanlaer.getName());
+
+        ChesspairingRound round7 = tournament.getRoundByRoundNumber(7);
+        ChesspairingGame game14 = round7.getGame(vanlaer);
+        ChesspairingPlayer colmont = game14.getBlackPlayer();
+        Assert.assertEquals("Colmont Aloïs", colmont.getName());
+        Assert.assertEquals(ChesspairingResult.BLACK_WINS, game14.getResult());
+
     }
 }

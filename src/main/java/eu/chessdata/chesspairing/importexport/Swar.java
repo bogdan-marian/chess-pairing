@@ -99,15 +99,28 @@ public class Swar implements ImportExportTool {
 
                 String tableId = jsonGame.get("Tabel").asText();
                 if (tableId.equals("BYE")) {
-                    throw new IllegalStateException("Please process also bye");
+                    ChesspairingGame byeGame = new ChesspairingGame();
+                    round.getGames().add(byeGame);
+
+                    byeGame.setTableNumber(0);
+                    byeGame.setWhitePlayer(playerThis);
+                    byeGame.setResult(ChesspairingResult.BYE);
+                    continue;
+
+                }
+                if (tableId.equals("Absent")) {
+                    List<ChesspairingPlayer> absentPlayers = round.getAbsentPlayers();
+                    absentPlayers.add(playerThis);
+                    continue;
                 }
                 Integer tableNumber = Integer.valueOf(tableId);
 
                 if (!round.hasGameForTable(tableNumber)) {
                     // build the game
                     ChesspairingGame game = new ChesspairingGame();
-                    game.setTableNumber(tableNumber);
                     round.getGames().add(game);
+
+                    game.setTableNumber(tableNumber);
 
                     String niThat = jsonGame.get("OpponentNi").asText();
                     ChesspairingPlayer playerThat = niMap.get(niThat);
