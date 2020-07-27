@@ -1,5 +1,6 @@
 package eu.chessdata.chesspairing.importexport;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.chessdata.chesspairing.model.*;
@@ -23,10 +24,19 @@ public class Swar implements ImportExportTool {
     private Map<String, ChesspairingPlayer> niMap = new HashMap<>();
 
     @Override
-    public ChesspairingTournament buildFromStream(InputStream sourceStream) throws IOException {
-        ChesspairingTournament tournament = new ChesspairingTournament();
+    public ChesspairingTournament buildFromString(String sourceString) throws JsonProcessingException {
+        JsonNode jsonNode = mapper.readTree(sourceString);
+        return decodeSwarTournament(jsonNode);
+    }
 
+    @Override
+    public ChesspairingTournament buildFromStream(InputStream sourceStream) throws IOException {
         JsonNode jsonNode = mapper.readTree(sourceStream);
+        return decodeSwarTournament(jsonNode);
+    }
+
+    private ChesspairingTournament decodeSwarTournament(JsonNode jsonNode) {
+        ChesspairingTournament tournament = new ChesspairingTournament();
         JsonNode swarNode = jsonNode.get("Swar");
         JsonNode tournamentDescription = swarNode.get("TournamentDesc");
         String tournamentName = tournamentDescription.get("Tournament").asText();
