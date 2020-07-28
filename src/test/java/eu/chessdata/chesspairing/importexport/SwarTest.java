@@ -1,7 +1,6 @@
 package eu.chessdata.chesspairing.importexport;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.chessdata.chesspairing.model.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,8 +15,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-no-parings.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -34,8 +32,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-parings.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -60,8 +57,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-results.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -84,8 +80,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-02-parings.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -115,8 +110,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-02-results.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -146,8 +140,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Braine-echecs-interne.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        Swar swar = new Swar();
+        Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertEquals("Braine échecs interne", tournament.getName());
 

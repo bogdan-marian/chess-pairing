@@ -19,6 +19,22 @@ public class Swar implements ImportExportTool {
 
     private ObjectMapper mapper = new ObjectMapper();
     private Map<String, ChesspairingPlayer> niMap = new HashMap<>();
+    public String idField;
+
+    private Swar(String filedUsedAsId) {
+        this.idField = filedUsedAsId;
+    }
+
+    public static Swar newInstance(String fieldUsedAsId) {
+        Swar swar = new Swar(fieldUsedAsId);
+        return swar;
+    }
+
+
+    @Override
+    public String getFieldUsedAsId() {
+        return idField;
+    }
 
     @Override
     public ChesspairingTournament buildFromString(String sourceString) throws JsonProcessingException {
@@ -33,6 +49,10 @@ public class Swar implements ImportExportTool {
     }
 
     private ChesspairingTournament decodeSwarTournament(JsonNode jsonNode) {
+        if (null == idField) {
+            throw new IllegalStateException("Swar fieldId not initialized");
+        }
+
         ChesspairingTournament tournament = new ChesspairingTournament();
         JsonNode swarNode = jsonNode.get("Swar");
         JsonNode tournamentDescription = swarNode.get("TournamentDesc");
@@ -71,7 +91,7 @@ public class Swar implements ImportExportTool {
         JsonNode jsonPlayers = swarNode.get("Player");
         for (JsonNode playerNode : jsonPlayers) {
             String name = playerNode.get("Name").asText();
-            String id = playerNode.get("NationalId").asText();
+            String id = playerNode.get(idField).asText();
             int rank = playerNode.get("Ranking").asInt();
             ChesspairingPlayer player = new ChesspairingPlayer();
             player.setName(name);

@@ -10,4 +10,6 @@ public interface ImportExportTool {
     ChesspairingTournament buildFromStream(InputStream sourceStream) throws IOException;
 
     ChesspairingTournament buildFromString(String sourceString) throws JsonProcessingException;
+
+    String getFieldUsedAsId();
 }
