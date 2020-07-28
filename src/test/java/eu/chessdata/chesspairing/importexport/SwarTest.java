@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class SwarTest {
 
@@ -155,5 +156,20 @@ public class SwarTest {
         ChesspairingPlayer colmont = game14.getBlackPlayer();
         Assert.assertEquals("Colmont Aloïs", colmont.getName());
         Assert.assertEquals(ChesspairingResult.BLACK_WINS, game14.getResult());
+    }
+
+    @Test
+    public void noResultsBugTest() throws IOException {
+        InputStream inputStream = SwarTest.class.getResourceAsStream(
+                "/importexport/swar/Swar-export-GameResultBug.json");
+
+        Swar swar = Swar.newInstance("NationalId");
+        ChesspairingTournament tournament = swar.buildFromStream(inputStream);
+
+        ChesspairingRound round = tournament.getRoundByRoundNumber(1);
+        List<ChesspairingGame> games = round.getGames();
+        for (ChesspairingGame game : games) {
+            Assert.assertNotEquals(ChesspairingResult.NOT_DECIDED, game.getResult());
+        }
     }
 }
