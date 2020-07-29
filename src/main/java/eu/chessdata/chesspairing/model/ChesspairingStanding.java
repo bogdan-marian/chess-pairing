@@ -8,6 +8,7 @@ public class ChesspairingStanding {
 
     private int rank;
     private ChesspairingPlayer player;
+    private float points;
     private float bucholtz;
     private float bucholtzCut1;
     private int gamesWon;
@@ -23,6 +24,15 @@ public class ChesspairingStanding {
     }
 
     // <getters and setters>
+
+
+    public float getPoints() {
+        return points;
+    }
+
+    public void setPoints(float points) {
+        this.points = points;
+    }
 
     public int getRank() {
         return rank;

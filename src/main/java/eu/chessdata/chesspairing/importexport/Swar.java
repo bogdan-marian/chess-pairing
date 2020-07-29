@@ -230,6 +230,9 @@ public class Swar implements ImportExportTool {
             int rank = playerNode.get("Ranking").asInt();
             standing.setRank(rank);
 
+            float pointsAtRound = playerNode.get("Points").asLong();
+            standing.setPoints(pointsAtRound);
+
             JsonNode tieBreakNode = playerNode.get("TieBreak");
 
             for (JsonNode tieItemNode : tieBreakNode) {
