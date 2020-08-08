@@ -176,7 +176,7 @@ public class SwarTest {
     @Test
     public void importEloTest() throws IOException {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
-                "/importexport/swar/Swar-export-GameResultBug.json");
+                "/importexport/swar/Swar-export-00-players-rounds-elo.json");
 
         Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);

@@ -94,13 +94,14 @@ public class Swar implements ImportExportTool {
             String id = playerNode.get(idField).asText();
             int rank = playerNode.get("Ranking").asInt();
             int initialRank = playerNode.get("Rank").asInt();
+            int elo = playerNode.get("NationalElo").asInt();
 
             ChesspairingPlayer player = new ChesspairingPlayer();
             player.setName(name);
             player.setPlayerKey(id);
             player.setRank(rank);
             player.setInitialOrderId(initialRank);
-
+            player.setElo(elo);
             players.add(player);
 
             String ni = playerNode.get("Ni").asText();
