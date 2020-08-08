@@ -172,4 +172,18 @@ public class SwarTest {
             Assert.assertNotEquals(ChesspairingResult.NOT_DECIDED, game.getResult());
         }
     }
+
+    @Test
+    public void importEloTest() throws IOException {
+        InputStream inputStream = SwarTest.class.getResourceAsStream(
+                "/importexport/swar/Swar-export-GameResultBug.json");
+
+        Swar swar = Swar.newInstance("NationalId");
+        ChesspairingTournament tournament = swar.buildFromStream(inputStream);
+        List<ChesspairingPlayer> players = tournament.getPlayers();
+        for (ChesspairingPlayer player : players) {
+            Assert.assertNotEquals(0, player.getElo());
+        }
+
+    }
 }
