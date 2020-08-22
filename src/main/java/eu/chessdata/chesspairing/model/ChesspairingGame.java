@@ -281,4 +281,30 @@ public class ChesspairingGame {
         }
         return false;
     }
+
+
+    /**
+     * A player it has a real adversary if
+     * - is paired against a real person
+     * - the result of the game is only
+     * - WHITE_WINS, BLACK_WINS, DRAW
+     * For all the other cases the player has an virtual adversary
+     * - if the result is not decided it throw IllegalStateException
+     *
+     * @param player
+     * @return
+     */
+    public boolean playerHasRealAdversary(ChesspairingPlayer player) {
+        if (result == ChesspairingResult.NOT_DECIDED) {
+            throw new IllegalStateException(
+                    "You should never check for this if the game is not completed");
+        }
+        if (this.result == ChesspairingResult.WHITE_WINS
+                || this.result == ChesspairingResult.BLACK_WINS
+                || this.result == ChesspairingResult.DRAW_GAME) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

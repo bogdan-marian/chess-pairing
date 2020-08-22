@@ -342,22 +342,6 @@ public class ChesspairingTournament {
         throw new IllegalStateException("Not able to locate round nr " + roundNumber);
     }
 
-    /**
-     * It computes the Buchholz points won by a player ony by the game from a specific round
-     *
-     * @param roundNumber the round number
-     * @param playerId    the player id
-     * @return float value
-     */
-    public float getBuchholzPointsWonInRound(int roundNumber, String playerId) {
-        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
-        ChesspairingPlayer player = this.getPlayer(playerId);
-        if (!round.isPaired(player)) {
-            return 0.0f;
-        }
-        ChesspairingGame game = round.getGame(player);
-        return (game.getBuchholzPointsWonInGame(player, roundNumber, totalRounds));
-    }
 
     /**
      * It computes the BuchholzPoints for a specific player in a specific round
@@ -367,12 +351,60 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
-        float points = 0.0f;
-        for (int i = 1; i <= roundNumber; i++) {
-            points += getBuchholzPointsWonInRound(i, playerId);
-        }
-        return points;
+
+        ChesspairingPlayer player = getPlayer(playerId);
+
+        List<String> realAdversaryList = getListOfRealAdversaries(roundNumber, player);
+        List<VirtualAdversary> virtualAdversaryList =
+                getListOfVirtualAdversaries(roundNumber, player);
+
+        float buchholzPoints[] = {0.0f};
+
+        realAdversaryList.forEach(adversary -> {
+            float adversaryPoints = 0.0f;
+            for (int i = 1; i <= roundNumber; i++) {
+                adversaryPoints = adversaryPoints + getPointsWonInRound(i, adversary);
+            }
+            buchholzPoints[0] = buchholzPoints[0] + adversaryPoints;
+        });
+
+        virtualAdversaryList.forEach(virtual -> {
+            buchholzPoints[0] = buchholzPoints[0] + virtual.getPoints(roundNumber);
+        });
+
+        return buchholzPoints[0];
     }
+
+
+    private List<VirtualAdversary> getListOfVirtualAdversaries(int roundNumber, ChesspairingPlayer player) {
+        List<VirtualAdversary> virtualAdversaryList = new ArrayList<>();
+        for (int i = 1; i <= roundNumber; i++) {
+
+
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            if (!round.isPaired(player)) {
+                virtualAdversaryList.add(newVirtualAdversaryInstance(player, i));
+
+            }
+            if (round.isPaired(player) && !round.getGame(player).playerHasRealAdversary(player)) {
+                virtualAdversaryList.add(newVirtualAdversaryInstance(player, i));
+            }
+        }
+        return virtualAdversaryList;
+    }
+
+    private List<String> getListOfRealAdversaries(int roundNumber, ChesspairingPlayer player) {
+        List<String> adversaryIdList = new ArrayList<>();
+        for (int i = 1; i <= roundNumber; i++) {
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            if (round.isPaired(player) && round.getGame(player).playerHasRealAdversary(player)) {
+                String adversaryId = round.getGame(player).getAdversary(player).getPlayerKey();
+                adversaryIdList.add(adversaryId);
+            }
+        }
+        return adversaryIdList;
+    }
+
 
     /**
      * It computes the points for a specific player in a specific round
@@ -406,6 +438,31 @@ public class ChesspairingTournament {
             return player.get();
         } else {
             throw new IllegalStateException("Player not found by id=" + id);
+        }
+    }
+
+    private VirtualAdversary newVirtualAdversaryInstance(ChesspairingPlayer player,
+                                                         int startRound) {
+        VirtualAdversary adversary = new VirtualAdversary();
+        adversary.startRound = startRound;
+        float points = 0;
+        for (int i = 1; i < startRound; i++) {
+            points = points + getPointsWonInRound(i, player.getPlayerKey());
+        }
+        adversary.startPoints = points;
+        return adversary;
+    }
+
+    class VirtualAdversary {
+        int startRound;
+        float startPoints;
+
+        float getPoints(int currentRound) {
+            float points = startPoints;
+            for (int i = startRound + 1; i <= currentRound; i++) {
+                points = points + 0.5f;
+            }
+            return points;
         }
     }
 }
