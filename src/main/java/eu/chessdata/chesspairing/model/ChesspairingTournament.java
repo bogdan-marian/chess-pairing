@@ -342,22 +342,6 @@ public class ChesspairingTournament {
         throw new IllegalStateException("Not able to locate round nr " + roundNumber);
     }
 
-    /**
-     * It computes the Buchholz points won by a player ony by the game from a specific round
-     *
-     * @param roundNumber the round number
-     * @param playerId    the player id
-     * @return float value
-     */
-    public float getBuchholzPointsWonInRound(int roundNumber, String playerId) {
-        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
-        ChesspairingPlayer player = this.getPlayer(playerId);
-        if (!round.isPaired(player)) {
-            return 0.0f;
-        }
-        ChesspairingGame game = round.getGame(player);
-        return (game.getBuchholzPointsWonInGame(player, roundNumber, totalRounds));
-    }
 
     /**
      * It computes the BuchholzPoints for a specific player in a specific round
@@ -367,11 +351,21 @@ public class ChesspairingTournament {
      * @return float value
      */
     public float computeBuchholzPoints(int roundNumber, String playerId) {
-        float points = 0.0f;
+        ChesspairingRound round = this.getRoundByRoundNumber(roundNumber);
+        List<String> listOfAdversaries = this.getRealAdversariesUntilRound(roundNumber, playerId);
+
+        return 0.0f;
+    }
+
+    private List<String> getRealAdversariesUntilRound(int roundNumber, String playerId) {
+        List<String> idList = new ArrayList<>();
         for (int i = 1; i <= roundNumber; i++) {
-            points += getBuchholzPointsWonInRound(i, playerId);
+            ChesspairingPlayer player = this.getPlayer(playerId);
+            ChesspairingRound round = this.getRoundByRoundNumber(i);
+            if (round.isPaired(player)) {
+
+            }
         }
-        return points;
     }
 
     /**
