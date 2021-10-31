@@ -18,7 +18,7 @@ public class SwarRankingTest {
                 "/importexport/swar/Swar-export-01-no-parings.json");
 
         ObjectMapper mapper = new ObjectMapper();
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -51,7 +51,7 @@ public class SwarRankingTest {
                 "/importexport/swar/Swar-export-02-parings.json");
 
         ObjectMapper mapper = new ObjectMapper();
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -96,7 +96,7 @@ public class SwarRankingTest {
                 "/importexport/swar/Swar-export-02-results.json");
 
         ObjectMapper mapper = new ObjectMapper();
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");

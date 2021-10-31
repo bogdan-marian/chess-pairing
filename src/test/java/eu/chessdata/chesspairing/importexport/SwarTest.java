@@ -17,7 +17,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-no-parings.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -34,7 +34,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-parings.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -59,7 +59,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-01-results.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -82,7 +82,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-02-parings.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -112,7 +112,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-02-results.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         Assert.assertTrue(tournament.getName().equals("Chessout-export"));
         ChesspairingPlayer bogdan = tournament.getPlayerById("10001");
@@ -142,7 +142,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Braine-echecs-interne.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
 
         ChesspairingPlayer smirnov = tournament.getPlayerById("255122");
@@ -163,7 +163,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-GameResultBug.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
 
         ChesspairingRound round = tournament.getRoundByRoundNumber(1);
@@ -178,7 +178,7 @@ public class SwarTest {
         InputStream inputStream = SwarTest.class.getResourceAsStream(
                 "/importexport/swar/Swar-export-00-players-rounds-elo.json");
 
-        Swar swar = Swar.newInstance("NationalId");
+        Swar swar = Swar.newInstance();
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
         List<ChesspairingPlayer> players = tournament.getPlayers();
         for (ChesspairingPlayer player : players) {

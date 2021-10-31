@@ -19,22 +19,13 @@ public class Swar implements ImportExportTool {
 
     private ObjectMapper mapper = new ObjectMapper();
     private Map<String, ChesspairingPlayer> niMap = new HashMap<>();
-    public String idField;
     public List<String> idFieldList = Arrays.asList("FideId", "NationalId", "ClubNumber");
     public String nameField = "Name";
 
-    private Swar(String filedUsedAsId) {
-        this.idField = filedUsedAsId;
-    }
 
    private Swar(){
         //private constructor
    }
-
-    public static Swar newInstance(String fieldUsedAsId) {
-        Swar swar = new Swar(fieldUsedAsId);
-        return swar;
-    }
 
     public static Swar newInstance() {
         return new Swar();
@@ -43,7 +34,7 @@ public class Swar implements ImportExportTool {
 
     @Override
     public String getFieldUsedAsId() {
-        return idField;
+       throw new IllegalStateException("this should never be used for Swar");
     }
 
     @Override
