@@ -20,14 +20,24 @@ public class Swar implements ImportExportTool {
     private ObjectMapper mapper = new ObjectMapper();
     private Map<String, ChesspairingPlayer> niMap = new HashMap<>();
     public String idField;
+    public List<String> idFieldList = Arrays.asList("FideId", "NationalId", "ClubNumber");
+    public String nameField = "Name";
 
     private Swar(String filedUsedAsId) {
         this.idField = filedUsedAsId;
     }
 
+   private Swar(){
+        //private constructor
+   }
+
     public static Swar newInstance(String fieldUsedAsId) {
         Swar swar = new Swar(fieldUsedAsId);
         return swar;
+    }
+
+    public static Swar newInstance() {
+        return new Swar();
     }
 
 
@@ -49,8 +59,8 @@ public class Swar implements ImportExportTool {
     }
 
     private ChesspairingTournament decodeSwarTournament(JsonNode jsonNode) {
-        if (null == idField) {
-            throw new IllegalStateException("Swar fieldId not initialized");
+        if (null == idFieldList) {
+            throw new IllegalStateException("Swar idFieldList not initialized");
         }
 
         ChesspairingTournament tournament = new ChesspairingTournament();
@@ -89,9 +99,10 @@ public class Swar implements ImportExportTool {
         List<ChesspairingPlayer> players = new ArrayList<>();
 
         JsonNode jsonPlayers = swarNode.get("Player");
+
         for (JsonNode playerNode : jsonPlayers) {
             String name = playerNode.get("Name").asText();
-            String id = playerNode.get(idField).asText();
+            String id = getPlayerId(playerNode);
             int rank = playerNode.get("Ranking").asInt();
             int initialRank = playerNode.get("Rank").asInt();
             int elo = playerNode.get("NationalElo").asInt();
@@ -108,6 +119,24 @@ public class Swar implements ImportExportTool {
             niMap.put(ni, player);
         }
         return players;
+    }
+
+    /**
+     * It uses first the list if ids and if all fails then it makes the name the key
+     * @param jsonNode
+     */
+    private String getPlayerId(JsonNode jsonNode){
+        for (String key: idFieldList){
+           if ( jsonNode.get(key) != null ){
+
+               String val = jsonNode.get(key).asText();
+               if (!val.equals("0")){
+                   return val;
+               }
+           }
+        }
+        String name = jsonNode.get(this.nameField).asText();
+        return name;
     }
 
     private List<ChesspairingRound> decodeTournamentRounds(JsonNode swarNode) {

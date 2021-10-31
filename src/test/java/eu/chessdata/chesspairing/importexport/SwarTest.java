@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 public class SwarTest {
@@ -143,9 +144,8 @@ public class SwarTest {
 
         Swar swar = Swar.newInstance("NationalId");
         ChesspairingTournament tournament = swar.buildFromStream(inputStream);
-        Assert.assertEquals("Braine échecs interne", tournament.getName());
 
-        ChesspairingPlayer smirnov = tournament.getPlayerById("17257");
+        ChesspairingPlayer smirnov = tournament.getPlayerById("255122");
         Assert.assertEquals("Smirnov, Stepan", smirnov.getName());
 
         ChesspairingPlayer vanlaer = tournament.getPlayerById("21560");
@@ -185,5 +185,67 @@ public class SwarTest {
             Assert.assertNotEquals(0, player.getElo());
         }
 
+    }
+
+    @Test
+    public void leuvenV1ImportR4File() throws IOException{
+        InputStream inputStream = SwarTest.class.getResourceAsStream(
+                "/importexport/swar/Leuven-v1-r4.json");
+
+        Swar swar = Swar.newInstance();
+        ChesspairingTournament tournament = swar.buildFromStream(inputStream);
+        Assert.assertTrue(tournament.getName().equals("32ste Open Leuven 2021"));
+        ChesspairingPlayer calin = tournament.getPlayerById("253022");
+        Assert.assertTrue(calin.getName().equals("Oloeriu, Calin"));
+
+        Assert.assertTrue(tournament.getTotalRounds() == 7);
+
+        int pairedRounds = tournament.getRounds().size();
+        Assert.assertEquals(4, pairedRounds);
+
+        // round 1 game
+        ChesspairingGame game = tournament.getRoundByRoundNumber(2).getGame(calin);
+        ChesspairingPlayer parreira = game.getBlackPlayer();
+        Assert.assertEquals("Parreira, Luis Miguel", parreira.getName());
+
+        Assert.assertEquals(ChesspairingResult.WHITE_WINS, game.getResult());
+
+        // round 2 game
+        game = tournament.getRoundByRoundNumber(3).getGame(calin);
+        ChesspairingPlayer cocquyt = game.getWhitePlayer();
+        Assert.assertEquals("Cocquyt, Tijs", cocquyt.getName());
+        Assert.assertEquals(ChesspairingResult.WHITE_WINS, game.getResult());
+    }
+
+
+    @Test
+    public void leuvenV1ImportR4ModifiedFile() throws IOException{
+
+        InputStream inputStream = SwarTest.class.getResourceAsStream(
+                "/importexport/swar/Leuven-v1-r4-modifie.json");
+
+        Swar swar = Swar.newInstance();
+        ChesspairingTournament tournament = swar.buildFromStream(inputStream);
+        Assert.assertTrue(tournament.getName().equals("32ste Open Leuven 2021"));
+        ChesspairingPlayer cezar = tournament.getPlayerById("Oloeriu, Cezar");
+        Assert.assertTrue(cezar.getName().equals("Oloeriu, Cezar"));
+
+        Assert.assertTrue(tournament.getTotalRounds() == 7);
+
+        int pairedRounds = tournament.getRounds().size();
+        Assert.assertEquals(4, pairedRounds);
+
+        // round 1 game
+        ChesspairingGame game = tournament.getRoundByRoundNumber(2).getGame(cezar);
+        ChesspairingPlayer luies = game.getWhitePlayer();
+        Assert.assertEquals("Michielsen, Lies", luies.getName());
+
+        Assert.assertEquals(ChesspairingResult.WHITE_WINS, game.getResult());
+
+        // round 2 game
+        game = tournament.getRoundByRoundNumber(3).getGame(cezar);
+        ChesspairingPlayer bultijnck = game.getBlackPlayer();
+        Assert.assertEquals("Bultijnck, Kristoff", bultijnck.getName());
+        Assert.assertEquals(ChesspairingResult.BLACK_WINS, game.getResult());
     }
 }
