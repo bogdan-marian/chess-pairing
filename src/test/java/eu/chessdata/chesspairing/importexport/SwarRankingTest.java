@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class SwarRankingTest {
 
@@ -163,7 +162,7 @@ public class SwarRankingTest {
                 .get(0)
                 .getGames()
                 .get(1)
-                .setResult(ChesspairingResult.DRAW_DOUBLE_FORFEIT);//
+                .setResult(ChesspairingResult.DRAW_REFEREE_DECISION);//
         Assert.assertNotNull(tournament);
 
         int roundNumber = 2;

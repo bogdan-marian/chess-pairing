@@ -172,7 +172,7 @@ public class ChesspairingGame {
                     result == ChesspairingResult.BYE) {
                 return 1.0f;
             } else if (result == ChesspairingResult.DRAW_GAME ||
-                    result ==ChesspairingResult.DRAW_DOUBLE_FORFEIT) {
+                    result ==ChesspairingResult.DRAW_REFEREE_DECISION) {
                 return 0.5f;
             } else {
                 return 0.0f;
