@@ -136,4 +136,13 @@ public class JavafoWrappTest {
 		ChesspairingTournament nextRoundTournament = algorithm.generateNextRound(tournament);
 		TestUtils.writeToFile(nextRoundTournament, "javafoWrapTestTest8.json");
 	}
+
+	@Test
+	public void test09UseAlsoDoubleForfeitResults(){
+		ChesspairingTournament tournament = TestUtils.loadFile("/jafafoWrapp/test09UseAlsoDoubleForfeitResults.json");
+		Assert.assertNotNull(tournament);
+		Algorithm algorithm = new JavafoWrapp();
+		ChesspairingTournament nextRoundTournament = algorithm.generateNextRound(tournament);
+		TestUtils.writeToFile(nextRoundTournament, "javafoWrapTestTest09UseAlsoDoubleForfeitResults.json");
+	}
 }

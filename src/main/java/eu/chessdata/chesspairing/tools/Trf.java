@@ -10,6 +10,8 @@ import java.util.*;
 /**
  * Class with public static methods that are used for exporting a tournament as
  * a trf
+ * https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
+ * See also same file in notes/C04Annex2_TRF16.pdf
  *
  * @author bogda
  */
@@ -257,8 +259,12 @@ public class Trf {
                                     case DRAW_GAME:
                                         sb.append("=");
                                         break;
+                                    case DRAW_REFEREE_DECISION:
+                                    case DOUBLE_FORFEIT:
+                                        sb.append("D");
+                                        break;
                                     default:
-                                        throw new IllegalStateException("Illegal state. Please debug");
+                                        throw new IllegalStateException("Illegal state. Please debug not supported result: "+result);
                                 }
                             }
                         }
@@ -289,8 +295,12 @@ public class Trf {
                                 case DRAW_GAME:
                                     sb.append("=");
                                     break;
+                                case DRAW_REFEREE_DECISION:
+                                case DOUBLE_FORFEIT:
+                                    sb.append("D");
+                                    break;
                                 default:
-                                    throw new IllegalStateException("Illegal state. Please debug");
+                                    throw new IllegalStateException("Illegal state. Please debug not supported result: "+result);
                             }
                         }
                     } else {
