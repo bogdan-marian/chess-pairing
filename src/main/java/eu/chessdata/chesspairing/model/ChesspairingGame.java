@@ -171,7 +171,8 @@ public class ChesspairingGame {
                     result == ChesspairingResult.WHITE_WINS_BY_FORFEIT ||
                     result == ChesspairingResult.BYE) {
                 return 1.0f;
-            } else if (result == ChesspairingResult.DRAW_GAME) {
+            } else if (result == ChesspairingResult.DRAW_GAME ||
+                    result ==ChesspairingResult.DRAW_DOUBLE_FORFEIT) {
                 return 0.5f;
             } else {
                 return 0.0f;
